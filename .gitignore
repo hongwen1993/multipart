@@ -1,0 +1,14 @@
+# Created by .ignore support plugin (hsz.mobi)
+
+.idea/
+multipart-service2/multipart-service2.iml
+multipart-service2/target/generated-sources/
+*.iml
+multipart-client/target/generated-sources/
+multipart-client/target/generated-test-sources/
+multipart-client1/target/generated-sources/
+multipart-config-service/target/generated-sources/
+multipart-entity/target/generated-sources/
+multipart-entity/target/generated-test-sources/
+multipart-eureka/target/generated-sources/
+multipart-service1/target/generated-sources/
