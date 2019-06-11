@@ -17,6 +17,7 @@
         <module>multipart-eureka</module>
         <module>multipart-config-service</module>
         <module>multipart-config-client</module>
+        <module>multipart-zuul-service</module>
     </modules>
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
