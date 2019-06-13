@@ -2,6 +2,7 @@ package com.netty.client2.controller;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.ribbon.proxy.annotation.Hystrix;
+import com.netty.client2.entity.User;
 import com.netty.client2.service.FeignTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import javax.annotation.Resource;
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -20,7 +23,7 @@ import java.util.List;
 @RequestMapping("index")
 public class UserController {
 
-    @Autowired
+    @Resource
     FeignTest feignTest;
 
     @Autowired
@@ -63,7 +66,7 @@ public class UserController {
     }
 
     /**
-     * Hystrix
+     * Hystrix - 熔断测试
      */
     @GetMapping(path = "/id3")
     @HystrixCommand(fallbackMethod = "getTest03Bak")
@@ -77,6 +80,16 @@ public class UserController {
     }
 
 
+    /**
+     * Valid效验测试
+     */
+    @GetMapping(path = "/valid")
+    public Object test04(@Valid User user) {
+
+        System.out.println(user);
+
+        return "ok";
+    }
 
 
 

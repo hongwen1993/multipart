@@ -14,3 +14,11 @@ eureka:
 feign:
   hystrix:
     enabled: true # 开启Feign的熔断功能
+
+management:
+  server:
+    port: 8023
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream

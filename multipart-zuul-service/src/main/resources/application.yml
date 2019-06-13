@@ -5,21 +5,31 @@ spring:
     name: api-gateway #指定服务名
 
 zuul:
+  ignored-patterns: /upload/** # 上传等操作,负担大则不需要重新路由
+  ignored-services: upload-servie # 服务过滤
   routes:
     users:
-      path: /user/**
+      path: /user/** # path与serviceId都可以当做路由
       serviceId: user-service
-
-#zuul:
-#  routes:
-#      user-service: /test/**
-
 eureka:
   client:
-    registry-fetch-interval-seconds: 5 # 获取服务列表的周期：5s
+    registry-fetch-interval-seconds: 5 # 获取服务列表的周期：5s(注意:启动后默认是无服务状态,也表示延迟发现服务的时长)
     service-url:
       defaultZone: http://127.0.0.1:10086/eureka
   instance:
     prefer-ip-address: true
     ip-address: 127.0.0.1
 
+ribbon:
+  ConnectTimeout: 250 # 连接超时时间(ms)
+  ReadTimeout: 2000 # 通信超时时间(ms)
+  OkToRetryOnAllOperations: true # 是否对所有操作重试
+  MaxAutoRetriesNextServer: 2 # 同一服务不同实例的重试次数
+  MaxAutoRetries: 1 # 同一实例的重试次数
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMillisecond: 6000 # 熔断超时时长：6000ms
