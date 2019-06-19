@@ -13,16 +13,20 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.io.FileSystemResource;
 
+import java.io.File;
 import java.io.Writer;
 
 @SpringBootApplication
 public class BatchApplication {
 
-    @Autowired
-    private JobBuilderFactory jobBuilderFactory;
-    @Autowired
-    private StepBuilderFactory stepBuilderFactory;
+    //@Autowired
+    //private JobBuilderFactory jobBuilderFactory;
+    //@Autowired
+    //private StepBuilderFactory stepBuilderFactory;
+
+    //public static int CHUNK_SIZE = 10;
 
     public static void main(String[] args) {
         SpringApplication.run(BatchApplication.class, args);
@@ -30,12 +34,10 @@ public class BatchApplication {
 
     //@Bean
     //public Job messageMigrationJob(@Qualifier("messageMigrationStep") Step messageMigrationStep) {
-    //    return jobBuilderFactory.get("messageMigrationJob")
-    //            .start(messageMigrationStep)
-    //            .build();
+    //    return jobBuilderFactory.get("messageMigrationJob").start(messageMigrationStep).build();
     //}
 
-    public static int CHUNK_SIZE = 10;
+
 
     //@Bean
     //public Step messageMigrationStep(@Qualifier("jsonMessageReader") FlatFileItemReader<Message> jsonMessageReader,
@@ -48,6 +50,14 @@ public class BatchApplication {
     //            .writer(messageItemWriter).faultTolerant().skip(Exception.class).skipLimit(SKIP_LIMIT)
     //            .listener(new MessageWriteListener())
     //            .build();
+    //}
+    //
+    //@Bean
+    //public FlatFileItemReader<Message> jsonMessageReader() {
+    //    FlatFileItemReader<Message> reader = new FlatFileItemReader<>();
+    //    reader.setResource(new FileSystemResource(new File(MESSAGE_FILE)));
+    //    reader.setLineMapper(new MessageLineMapper());
+    //    return reader;
     //}
 
 }
