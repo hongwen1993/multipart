@@ -55,7 +55,7 @@ public class Demo02Config {
     }
 
     /**
-     * 并发执行
+     * 并发执行 - (实际上会因为CPU时间片的调度导致顺序执行)
      */
     @Bean
     public Job flowDemoJob () {
