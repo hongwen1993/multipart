@@ -19,6 +19,8 @@
         <module>multipart-config-client</module>
         <module>multipart-zuul-service</module>
         <module>multipart-batch</module>
+        <module>multipart-elk</module>
+        <module>multipart-netty</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>
