@@ -8,6 +8,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,7 +23,6 @@ public class Test01 {
     public void demo01 () {
         //Object object = restTemplate.getForObject("http://localhost:9200/_analyze", Object.class);
         //System.out.println(object);
-        //
 
         Map<String, String> param = new HashMap<>();
         param.put("analyzer", "ik_max_word");
@@ -30,6 +30,7 @@ public class Test01 {
 
         Object object = restTemplate.postForLocation("http://localhost:9200/_analyze", Object.class, param);
         System.out.println(object);
+
     }
 
 
