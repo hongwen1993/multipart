@@ -1,6 +1,11 @@
 package com.kagura.controller;
 
+import com.kagura.config.TestTaskSchedule;
+import com.kagura.utils.SpringContextUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.scheduling.config.ContextLifecycleScheduledTaskRegistrar;
+import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -61,6 +66,30 @@ public class TestController {
         Queue<String> queue = new LinkedBlockingQueue<>();
         return 1;
     }
+
+
+
+    @Autowired
+    SpringContextUtils springContextUtils;
+    @GetMapping(path = "/03")
+    public Object test03() {
+        System.out.println(1);
+        ScheduledTaskRegistrar registrar = springContextUtils.getBean(ScheduledTaskRegistrar.class);
+        System.out.println(registrar); // null
+        return 1;
+
+    }
+
+    @Autowired
+    TestTaskSchedule testTaskSchedule;
+    @GetMapping(path = "/04")
+    public Object test04() {
+        System.out.println(1);
+        testTaskSchedule.setCron("0/3 * * * * ?");
+        return 1;
+
+    }
+
 
 
 }

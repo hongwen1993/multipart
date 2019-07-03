@@ -12,6 +12,10 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.locks.Condition;
@@ -88,5 +92,60 @@ public class Test01 {
         System.out.println(unsafe2);
 
     }
+
+
+
+    private static final List<Thread> threads = new ArrayList<>();
+    @Test
+    public void test04() throws InterruptedException {
+        new Thread(() -> {
+            try {
+                System.out.println(Thread.currentThread().getName() + " 1");
+                threads.add(Thread.currentThread());
+                System.out.println(Thread.currentThread().getName() + " 2");
+                Thread.sleep(15000);
+                System.out.println(Thread.currentThread().getName() + " 3");
+            } catch (InterruptedException e) {
+                System.out.println(Thread.currentThread().getName() + " error");
+                e.printStackTrace();
+            }
+        }).start();
+
+        System.out.println(Thread.currentThread().getName() + " 1");
+        Thread.sleep(5000);
+        System.out.println(Thread.currentThread().getName() + " 2");
+        int i = 0;
+        while (true) {
+            if (i == 0) {
+                i += 1;
+                System.out.println(threads.get(0).isAlive());
+                System.out.println(threads.get(0).getThreadGroup());
+                System.out.println(threads.get(0).isDaemon());
+                threads.get(0).interrupt();
+            }
+        }
+    }
+
+    @Test
+    public void test05() throws InterruptedException {
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                System.out.println(1);
+            }
+        }, 1000, 2000);
+
+        Boolean tf = true;
+        while (true) {
+            if (tf) {
+                Thread.sleep(10000);
+                timer.cancel();
+                System.out.println("a");
+                tf = false;
+            }
+        }
+    }
+
 
 }
