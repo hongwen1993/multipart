@@ -7,7 +7,9 @@ import org.springframework.scheduling.support.CronTrigger;
 import org.springframework.stereotype.Component;
 
 /**
- * @author hw
+ * 不可以使用@Schedule,一个文件算一个定时任务
+ * - 实现SchedulingConfigurer
+ * @author kagura
  */
 @Component
 public class TestTaskSchedule implements SchedulingConfigurer {
