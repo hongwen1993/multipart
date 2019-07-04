@@ -1,5 +1,8 @@
 package com.kagura;
 
+import com.pretty_tools.dde.DDEException;
+import com.pretty_tools.dde.DDEMLException;
+import com.pretty_tools.dde.client.DDEClientConversation;
 import io.netty.channel.Channel;
 import org.junit.Test;
 import org.springframework.scheduling.quartz.LocalTaskExecutorThreadPool;
@@ -145,6 +148,30 @@ public class Test01 {
                 tf = false;
             }
         }
+    }
+
+    @Test
+    public void test06() {
+        try {
+            final DDEClientConversation conversation = new DDEClientConversation();
+            conversation.connect("Excel", "Sheet1");
+            try {
+                // Requesting A1 value
+                System.out.println("R1C1 value: " + conversation.request("R1C1"));
+                // Changing cell A1 value to "We did it!"
+                //conversation.poke("R1C1", "We did it!");
+                // Sending "close()" command
+                //conversation.execute("[close()]");
+            } finally {
+                conversation.disconnect();
+            }
+        } catch (DDEMLException e) {
+            System.out.println("DDEMLException: 0x" + Integer.toHexString(e.getErrorCode())
+                    + " " + e.getMessage());
+        } catch (DDEException e) {
+            System.out.println("DDEException: " + e.getMessage());
+        }
+
     }
 
 
