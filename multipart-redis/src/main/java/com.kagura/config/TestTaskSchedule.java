@@ -17,7 +17,7 @@ public class TestTaskSchedule implements SchedulingConfigurer {
     /**
      * cron表达式,最好设置初始值,否则容易失效
      */
-    private String cron = "0/10 * * * * ?";
+    private String cron = "1 1 1 * * ?";
 
     public String getCron() {
         return cron;
