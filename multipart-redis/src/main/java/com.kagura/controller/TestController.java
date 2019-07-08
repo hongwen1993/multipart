@@ -1,6 +1,8 @@
 package com.kagura.controller;
 
 import com.kagura.config.TestTaskSchedule;
+import com.kagura.model.Cat;
+import com.kagura.utils.ContextUtils;
 import com.kagura.utils.SpringContextUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -86,6 +88,15 @@ public class TestController {
     public Object test04() {
         System.out.println(1);
         testTaskSchedule.setCron("0/3 * * * * ?");
+        return 1;
+
+    }
+
+
+    @GetMapping(path = "/05")
+    public Object test05() {
+        System.out.println("context : " + ContextUtils.getApplicationContext());
+        System.out.println("result : " + ContextUtils.getApplicationContext().getBean(Cat.class));
         return 1;
 
     }

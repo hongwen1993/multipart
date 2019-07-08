@@ -1,9 +1,13 @@
 package com.kagura;
 
+import com.kagura.model.Cat;
+import com.kagura.utils.ContextUtils;
 import com.kagura.utils.SerializerUtils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
@@ -11,10 +15,14 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @EnableScheduling
+@Import(Cat.class)
 public class RedisApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(RedisApplication.class, args);
+        ConfigurableApplicationContext context = SpringApplication.run(RedisApplication.class, args);
+        ContextUtils.setApplicationContext(context);
+        System.out.println("cat : " + context.getBean(Cat.class));
+        context.close();
     }
 
     /**
