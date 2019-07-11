@@ -1,5 +1,6 @@
 package com.kagura.config;
 
+import com.kagura.annotation.PushListener;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 
@@ -7,6 +8,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
 //使用@Component的话,初始化无法动态赋值,只能写死private String name = "A";
+@PushListener
 public class KaguraBean implements InitializingBean, DisposableBean {
 
     private String name;

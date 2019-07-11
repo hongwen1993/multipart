@@ -101,6 +101,12 @@ public class TestController {
 
     }
 
+    @GetMapping(path = "/06")
+    public Object test06() {
+
+        return 1;
+    }
+
 
 
 }
