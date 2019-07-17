@@ -2,10 +2,12 @@ package com.kagura;
 
 import com.kagura.annotation.PushListener;
 import com.kagura.utils.SpringContextUtils;
+import com.kagura.utils.TestUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.junit.Test;
 import org.junit.runner.FilterFactory;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -28,10 +30,12 @@ public class Test03 {
         }
     }
 
-
+    @Autowired
+    TestUtils testUtils;
     @Test
     public void test02() {
-
+        System.out.println(testUtils.getPassword());
+        System.out.println(testUtils.getUserName());
     }
 
 
