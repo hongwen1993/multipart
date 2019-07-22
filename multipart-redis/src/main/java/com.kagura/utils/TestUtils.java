@@ -1,5 +1,7 @@
 package com.kagura.utils;
 
+import com.fasterxml.jackson.databind.ser.Serializers;
+import com.kagura.model.Cat;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -34,4 +36,7 @@ public class TestUtils implements InitializingBean {
     public void afterPropertiesSet() throws Exception {
         System.out.println("TestUtils afterPropertiesSet : " + userName);
     }
+
+
+
 }
