@@ -1,6 +1,9 @@
 package com.kagura.xiaomage;
 
 /**
+ * 此处会出现锁竞争,简单的理解就是类加载器被wait了
+ * 连main方法都无法执行到
+ *
  * @author Karas
  * @date 2019/7/22 13:43
  */
