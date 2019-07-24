@@ -11,11 +11,11 @@ import org.springframework.stereotype.Component;
  * @author Karas
  * @date 2019/7/16 15:38
  */
-@Component
+//@Component
 public class OrderTest02 implements Ordered{
 
     public OrderTest02() {
-        System.err.println("OrderTest02");
+        System.err.println("OrderTest02 -> 构造");
     }
 
     @Override

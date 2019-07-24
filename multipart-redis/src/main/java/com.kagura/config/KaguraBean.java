@@ -21,7 +21,7 @@ public class KaguraBean implements InitializingBean, DisposableBean, SmartInitia
     private String name;
 
     public KaguraBean () {
-        System.out.println("执行构造函数");
+        System.err.println("KaguraBean 造函数");
     }
 
     public String getName() {
@@ -70,13 +70,13 @@ public class KaguraBean implements InitializingBean, DisposableBean, SmartInitia
 
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
-        System.err.println("Bean1 -> postProcessBeforeInitialization()");
+        //System.err.println("Bean1 -> postProcessBeforeInitialization()");
         return bean;
     }
 
     @Override
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-        System.err.println("Bean1 -> postProcessAfterInitialization()");
+        //System.err.println("Bean1 -> postProcessAfterInitialization()");
         return bean;
     }
 }

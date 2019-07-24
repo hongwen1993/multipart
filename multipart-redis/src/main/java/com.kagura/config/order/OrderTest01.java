@@ -11,15 +11,15 @@ import org.springframework.stereotype.Component;
  * @author Karas
  * @date 2019/7/16 15:37
  */
-@Component
+//@Component
 public class OrderTest01 implements Ordered{
 
     public OrderTest01() {
-        System.err.println("OrderTest01");
+        System.err.println("OrderTest01 -> 构造");
     }
 
     @Override
     public int getOrder() {
-        return Integer.MAX_VALUE;
+        return Integer.MIN_VALUE;
     }
 }
