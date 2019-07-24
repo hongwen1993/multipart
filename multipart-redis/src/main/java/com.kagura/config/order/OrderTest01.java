@@ -1,5 +1,6 @@
 package com.kagura.config.order;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -11,9 +12,14 @@ import org.springframework.stereotype.Component;
  * @date 2019/7/16 15:37
  */
 @Component
-public class OrderTest01 {
+public class OrderTest01 implements Ordered{
 
     public OrderTest01() {
-        System.out.println("OrderTest01");
+        System.err.println("OrderTest01");
+    }
+
+    @Override
+    public int getOrder() {
+        return Integer.MAX_VALUE;
     }
 }
