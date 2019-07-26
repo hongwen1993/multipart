@@ -14,7 +14,7 @@ public class WithMilk extends D{
     @Override
     public double getCost() {
         return super.getCost() + 1d;
-    }
+}
 
     @Override
     public String getIngredients() {
