@@ -5,6 +5,8 @@ import com.kagura.utils.ContextUtils;
 import com.kagura.utils.SerializerUtils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
@@ -16,13 +18,18 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 @EnableScheduling
 @Import(Cat.class)
-public class RedisApplication {
+public class RedisApplication extends SpringBootServletInitializer {
+
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+        return builder.sources(RedisApplication.class);
+    }
 
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(RedisApplication.class, args);
         ContextUtils.setApplicationContext(context);
         System.out.println("cat : " + context.getBean(Cat.class));
-        context.close();
+        //context.close();
     }
 
     /**

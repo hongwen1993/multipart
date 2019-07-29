@@ -4,6 +4,7 @@ import com.pretty_tools.dde.DDEException;
 import com.pretty_tools.dde.DDEMLException;
 import com.pretty_tools.dde.client.DDEClientConversation;
 import io.netty.channel.Channel;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.scheduling.quartz.LocalTaskExecutorThreadPool;
 import org.springframework.util.ReflectionUtils;
@@ -24,6 +25,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
+@Ignore
 public class Test01 {
 
     private final ReentrantLock lock = new ReentrantLock();
