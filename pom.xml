@@ -22,6 +22,7 @@
         <module>multipart-elk</module>
         <module>multipart-netty</module>
         <module>multipart-redis</module>
+        <module>multipart-dp-demo</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>
