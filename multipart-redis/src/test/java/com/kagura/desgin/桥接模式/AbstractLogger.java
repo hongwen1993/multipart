@@ -6,6 +6,7 @@ package com.kagura.desgin.桥接模式;
  * @since 1.0.0
  */
 abstract class AbstractLogger {
+    // 将日志组合进来
     private Logger logger = Logger.info();
 
     public AbstractLogger() {
