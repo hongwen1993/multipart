@@ -1,6 +1,7 @@
-package kagura.example;
+package kagura.example.second;
 
 import com.rabbitmq.client.*;
+
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.concurrent.TimeoutException;
@@ -24,10 +25,10 @@ public class Consumer {
         // 4. 获取Channel
         Channel channel = connection.createChannel();
         // 5. 在该Channel中声明一个队列
-        String exchange = "test_exchange";
-        String exchangeType = "direct";
-        String routingKey = "test_routingKey";
-        String queueName = "test01";
+        String exchange = "topic_exchange";
+        String exchangeType = "topic";
+        String routingKey = "test.#";
+        String queueName = "test02";
         // 声明一个交换机
         channel.exchangeDeclare(exchange, exchangeType, true, false,
                 false, null);
@@ -35,6 +36,7 @@ public class Consumer {
         channel.queueDeclare(queueName, true, false, false, null);
         // 建立关系,绑定,类似于第三方关联表
         channel.queueBind(queueName, exchange, routingKey);
+
         // 6. 创建消费者对象
         QueueingConsumer consumer = new QueueingConsumer(channel);
         // 7. 绑定Channel与消费者
