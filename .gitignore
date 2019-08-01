@@ -12,3 +12,4 @@ multipart-entity/target/generated-sources/
 multipart-entity/target/generated-test-sources/
 multipart-eureka/target/generated-sources/
 multipart-service1/target/generated-sources/
+**/target
