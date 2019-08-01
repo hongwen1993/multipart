@@ -23,6 +23,8 @@
         <module>multipart-netty</module>
         <module>multipart-redis</module>
         <module>multipart-dp-demo</module>
+        <module>multipart-rabbitmq</module>
+        <module>multipart-springboot-base</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>
