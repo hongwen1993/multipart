@@ -18,5 +18,6 @@ public class Reciver {
             System.out.println(textMessage.getText());
         }
         connection.close();
+
     }
 }

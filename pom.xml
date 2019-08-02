@@ -25,6 +25,7 @@
         <module>multipart-dp-demo</module>
         <module>multipart-rabbitmq</module>
         <module>multipart-springboot-base</module>
+        <module>multipart-springboot-rabbitmq-producer</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>
