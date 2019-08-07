@@ -18,6 +18,8 @@ public class RabbitMQUtils {
     private static final int PROT = 5672;
     private static final String VIRTUAL_HOST = "/";
 
+    public static final String TOPIC = "topic";
+
     public static Connection getDefaultConnection() throws IOException, TimeoutException {
         ConnectionFactory connectionFactory = new ConnectionFactory();
         connectionFactory.setHost(HOST);
