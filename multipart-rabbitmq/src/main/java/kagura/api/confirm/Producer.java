@@ -19,28 +19,40 @@ public class Producer {
     public static void main(String[] args) throws IOException, TimeoutException {
         // 获取连接
         Connection connection = RabbitMQUtils.getDefaultConnection();
-        //3 获取Channel
+        // 获取Channel
         Channel channel = connection.createChannel();
-        //4 开启确认模式
+        // 开启确认模式
         channel.confirmSelect();
-        //5 定向与填充内容
+        // 定向与填充内容
         String exchange = "test_confirm_exchange";
         String routingKey = "confirm.save";
         String message = "I am confirm producer";
-        //6 发送
+        // 发送
         channel.basicPublish(exchange, routingKey, null, message.getBytes());
-        //7 监听
+        // 监听
         channel.addConfirmListener(new ConfirmListener() {
+
+            /**
+             * 收到消费端发送的"Ack"
+             * @param deliveryTag    会话的名字 - 每一个消息都带有的一个唯一字符串
+             * @param multiple       是否是批量处理 - 一般都为false
+             */
             @Override
             public void handleAck(long deliveryTag, boolean multiple) throws IOException {
+
                 System.out.println(deliveryTag + " : successful");
                 System.out.println(multiple);
             }
 
+            /**
+             * 收到消费端发送的"No-Ack"
+             */
             @Override
             public void handleNack(long deliveryTag, boolean multiple) throws IOException {
+
                 System.out.println(deliveryTag + " : failed");
             }
+
         });
 
 
