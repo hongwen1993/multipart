@@ -14,7 +14,7 @@ import java.util.concurrent.TimeoutException;
  */
 public class RabbitMQUtils {
 
-    private static final String HOST = "192.168.0.169";
+    private static final String HOST = "192.168.66.66";
     private static final int PROT = 5672;
     private static final String VIRTUAL_HOST = "/";
 
