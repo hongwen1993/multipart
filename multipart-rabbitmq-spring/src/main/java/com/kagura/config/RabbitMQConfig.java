@@ -45,34 +45,35 @@ public class RabbitMQConfig {
 
 
     @Bean
-    @Order(999)
     public TopicExchange exchange001() {
         System.err.println(111111);
         return new TopicExchange("test.bean.topic.exchange001", true, false);
     }
     @Bean
-    @Order(999)
     public Queue queue001() {
         System.err.println(111111);
         return new Queue("test.bean.topic.queue001", true, false, false);
     }
     @Bean
-    @Order(999)
     public Queue queue002() {
         System.err.println(111111);
         return new Queue("test.bean.topic.queue002", true, false, false);
     }
     @Bean
-    @Order(999)
     public Binding binding001(@Qualifier("queue001") Queue queue001, @Qualifier("exchange001")TopicExchange exchange001) {
         System.err.println(111111);
         return BindingBuilder.bind(queue001).to(exchange001).with("test.01.#");
     }
     @Bean
-    @Order(999)
     public Binding binding002(@Qualifier("queue002") Queue queue002, @Qualifier("exchange001")TopicExchange exchange001) {
         System.err.println(111111);
         return BindingBuilder.bind(queue002).to(exchange001).with("test.02.#");
+    }
+
+
+    @Bean
+    public RabbitTemplate rabbitTemplate(@Qualifier("connectionFactory") ConnectionFactory connectionFactory) {
+        return new RabbitTemplate(connectionFactory);
     }
 
 
