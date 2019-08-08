@@ -1,10 +1,12 @@
 package kagura.api.dlx;
 
+import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import kagura.utils.RabbitMQUtils;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.concurrent.TimeoutException;
 
 /**
@@ -20,6 +22,10 @@ public class Producer {
         String exchange = "test_dlx_exchange";
         String routingKey = "dlx.save";
         String message = "I am dlx ";
-        channel.basicPublish(exchange, routingKey, true, null, message.getBytes());
+        AMQP.BasicProperties properties = new AMQP.BasicProperties().builder()
+                .contentEncoding("UTF-8")
+                .expiration("15000")
+                .build();
+        channel.basicPublish(exchange, routingKey, true, properties, message.getBytes());
     }
 }
