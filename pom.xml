@@ -27,6 +27,7 @@
         <module>multipart-springboot-base</module>
         <module>multipart-springboot-rabbitmq-producer</module>
         <module>multipart-rabbitmq-spring</module>
+        <module>multipart-drools</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>

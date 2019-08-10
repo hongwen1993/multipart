@@ -1,0 +1,12 @@
+package rules;
+
+rule "rule 01"
+    no-loop true
+    lock-on-active true
+    activation-group "test-group"
+//    agenda-group "COUPON - ACTIVITY - DIAL"
+    when
+        $d:Double($d == 10)
+    then
+        System.out.println("rule 01 : " +$d);
+    end

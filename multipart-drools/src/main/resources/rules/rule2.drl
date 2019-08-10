@@ -1,0 +1,15 @@
+package rules;
+
+rule "rule 01"
+when
+    $d:Double($d == 0)
+then
+    System.err.println("没有理智的刀客塔");
+end
+
+rule "rule 02"
+when
+    $d:Double($d == 999)
+then
+    System.err.println("理性的刀客塔");
+end
