@@ -8,6 +8,9 @@ import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.amqp.rabbit.listener.MessageListenerContainer;
+import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
+import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -25,7 +28,7 @@ import org.springframework.core.annotation.Order;
 public class RabbitMQConfig {
 
     @Bean
-    public ConnectionFactory connectionFactory(){
+    public ConnectionFactory connectionFactory() {
         CachingConnectionFactory connectionFactory = new CachingConnectionFactory();
         connectionFactory.setAddresses("192.168.66.66:5672");
         connectionFactory.setUsername("guest");
@@ -49,23 +52,29 @@ public class RabbitMQConfig {
         System.err.println(111111);
         return new TopicExchange("test.bean.topic.exchange001", true, false);
     }
+
     @Bean
     public Queue queue001() {
         System.err.println(111111);
         return new Queue("test.bean.topic.queue001", true, false, false);
     }
+
     @Bean
     public Queue queue002() {
         System.err.println(111111);
         return new Queue("test.bean.topic.queue002", true, false, false);
     }
+
     @Bean
-    public Binding binding001(@Qualifier("queue001") Queue queue001, @Qualifier("exchange001")TopicExchange exchange001) {
+    public Binding binding001(@Qualifier("queue001") Queue queue001,
+                              @Qualifier("exchange001") TopicExchange exchange001) {
         System.err.println(111111);
         return BindingBuilder.bind(queue001).to(exchange001).with("test.01.#");
     }
+
     @Bean
-    public Binding binding002(@Qualifier("queue002") Queue queue002, @Qualifier("exchange001")TopicExchange exchange001) {
+    public Binding binding002(@Qualifier("queue002") Queue queue002,
+                              @Qualifier("exchange001") TopicExchange exchange001) {
         System.err.println(111111);
         return BindingBuilder.bind(queue002).to(exchange001).with("test.02.#");
     }
@@ -76,7 +85,17 @@ public class RabbitMQConfig {
         return new RabbitTemplate(connectionFactory);
     }
 
+    @Bean
+    public MessageListenerContainer messageListenerContainer(
+            @Qualifier("connectionFactory") ConnectionFactory connectionFactory,
+            @Qualifier("queue001") Queue queue001, @Qualifier("queue002") Queue queue002) {
+        SimpleMessageListenerContainer container = new SimpleMessageListenerContainer(connectionFactory);
+        container.addQueues(queue001, queue002);
+        container.setConcurrentConsumers(1);
+        container.setMaxConcurrentConsumers(3);
 
+        return null;
+    }
 
 
 }
