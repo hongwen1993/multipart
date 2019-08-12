@@ -63,8 +63,9 @@ public class Test01 {
         MessageProperties messageProperties = new MessageProperties();
         messageProperties.setContentType("text/plain");
         Message message = new Message("mq 消息1234".getBytes(), messageProperties);
-
+        // send方法可以添加Properties
         rabbitTemplate.send("test.bean.topic.exchange001", "test.01.1", message);
+
 
         rabbitTemplate.convertAndSend("test.bean.topic.exchange001", "test.01.1", "hello object message send!");
         rabbitTemplate.convertAndSend("test.bean.topic.exchange001", "test.02.#", "hello object message send!");
