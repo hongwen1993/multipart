@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
     <packaging>jar</packaging>
 
-    <artifactId>multipart-springcloud-rabbit</artifactId>
+    <artifactId>multipart-springcloud-rabbitmq</artifactId>
 
     <dependencies>
         <dependency>
