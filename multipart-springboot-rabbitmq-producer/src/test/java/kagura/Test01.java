@@ -1,6 +1,7 @@
 package kagura;
 
 
+import kagura.entity.User;
 import kagura.producer.RabbitSender;
 import org.apache.commons.lang3.time.DateUtils;
 import org.junit.Test;
@@ -34,6 +35,14 @@ public class Test01 {
         properties.put("number", 1234567);
         properties.put("send_time", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
         rabbitSender.send("niu pi de ren ", properties);
+    }
+
+    @Test
+    public void test02() {
+        User user = new User();
+        user.setName("zhangsan");
+        user.setAge(16);
+        rabbitSender.sendUser(user);
     }
 
 

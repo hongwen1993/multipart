@@ -1,6 +1,7 @@
 package kagura.producer;
 
 
+import kagura.entity.User;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Component;
 import java.util.Map;
 
 /**
+ * 生产者
  * @author <a href="mailto:hongwen0928@outlook.com">Karas</a>
  * @date 2019/8/13 14:33
  * @since 1.0.0
@@ -48,5 +50,13 @@ public class RabbitSender {
         CorrelationData correlationData = new CorrelationData(System.currentTimeMillis() + "112556");
         rabbitTemplate.convertAndSend("test.topic.exchange", "save.user", ms, correlationData);
     }
+
+    public void sendUser(User user) {
+        rabbitTemplate.setConfirmCallback(confirmCallback);
+        rabbitTemplate.setReturnCallback(returnCallback);
+        CorrelationData correlationData = new CorrelationData("123456");
+        rabbitTemplate.convertAndSend("exchange-02", "save.user", user, correlationData);
+    }
+
 
 }
