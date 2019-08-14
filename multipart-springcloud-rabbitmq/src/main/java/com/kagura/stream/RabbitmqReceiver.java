@@ -20,10 +20,10 @@ public class RabbitmqReceiver {
 
     @StreamListener(Barista.INPUT_CHANNEL)
     public void receiverMessage(Message message) throws IOException {
-        System.err.println("接收消息：" + message.getPayload());
+        System.err.println("receiver message：" + message.getPayload());
         Channel channel = (Channel) message.getHeaders().get(AmqpHeaders.CHANNEL);
         Long deliveryTag = (Long) message.getHeaders().get(AmqpHeaders.DELIVERY_TAG);
-        if(deliveryTag != null) {
+        if(channel != null && deliveryTag != null) {
             channel.basicAck(deliveryTag, false);
         }
     }
