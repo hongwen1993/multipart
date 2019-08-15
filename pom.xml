@@ -30,6 +30,7 @@
         <module>multipart-drools</module>
         <module>multipart-springboot-hystrix</module>
         <module>multipart-springcloud-rabbitmq</module>
+        <module>multipart-dubbo-test</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>
