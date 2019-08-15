@@ -28,6 +28,7 @@
         <module>multipart-springboot-rabbitmq-producer</module>
         <module>multipart-rabbitmq-spring</module>
         <module>multipart-drools</module>
+        <module>multipart-springboot-test</module>
         <module>multipart-springboot-hystrix</module>
         <module>multipart-springcloud-rabbitmq</module>
         <module>multipart-dubbo-producer01</module>
