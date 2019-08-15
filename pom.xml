@@ -33,6 +33,7 @@
         <module>multipart-dubbo-producer01</module>
         <module>multipart-dubbo-producer02</module>
         <module>multipart-dubbo-consumer</module>
+        <module>multipart-dubbo-test-api</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>

@@ -8,9 +8,9 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
-    <artifactId>multipart-dubbo-producer01</artifactId>
     <packaging>jar</packaging>
+
+    <artifactId>multipart-springboot-test</artifactId>
 
     <dependencies>
         <dependency>
@@ -23,28 +23,12 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-aop</artifactId>
-        </dependency>
-        <!-- dubbo & zookeeper -->
-        <dependency>
-            <groupId>com.alibaba.spring.boot</groupId>
-            <artifactId>dubbo-spring-boot-starter</artifactId>
-            <version>2.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.101tec</groupId>
-            <artifactId>zkclient</artifactId>
-            <version>0.10</version>
-        </dependency>
-        <dependency>
-            <groupId>com.kaguya</groupId>
-            <artifactId>multipart-dubbo-test-api</artifactId>
-            <version>2.0-SNAPSHOT</version>
+            <artifactId>spring-boot-starter-logging</artifactId>
         </dependency>
     </dependencies>
 
     <build>
-        <finalName>multipart-dubbo-test</finalName>
+        <finalName>multipart-springboot-test</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -80,5 +64,6 @@
             </resource>
         </resources>
     </build>
+
 
 </project>

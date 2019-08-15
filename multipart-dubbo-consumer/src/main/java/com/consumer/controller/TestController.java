@@ -1,6 +1,7 @@
 package com.consumer.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.api.service.TestService;
 import com.kagura.service.UserService;
 import com.kagura2.service.FoodService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,15 +18,19 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
 
     @Reference
-    UserService userService;
-
+    private UserService userService;
     @Reference
-    FoodService foodService;
+    private FoodService foodService;
+    @Reference
+    private TestService testService;
+
+
 
     @GetMapping(path = "/01")
     public void test01() {
         System.out.println(userService.saveUser(1L));
         System.out.println(foodService.saveFood(2L));
+        System.err.println(testService.getOne());
     }
 
 }
