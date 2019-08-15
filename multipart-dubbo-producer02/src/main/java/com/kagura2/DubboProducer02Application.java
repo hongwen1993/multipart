@@ -1,4 +1,4 @@
-package com.kagura;
+package com.kagura2;
 
 import com.alibaba.dubbo.spring.boot.annotation.EnableDubboConfiguration;
 import org.springframework.boot.SpringApplication;
@@ -12,10 +12,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication
 @EnableDubboConfiguration
-public class DubboTestApplication {
+public class DubboProducer02Application {
 
     public static void main(String[] args) {
-        SpringApplication.run(DubboTestApplication.class, args);
+        SpringApplication.run(DubboProducer02Application.class, args);
     }
 
 }
