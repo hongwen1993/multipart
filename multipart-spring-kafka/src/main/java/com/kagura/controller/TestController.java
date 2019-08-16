@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Arrays;
+import java.util.regex.Pattern;
+
 /**
  * @author <a href="mailto:hongwen0928@outlook.com">Karas</a>
  * @date 2019/8/16 17:03
@@ -28,6 +31,11 @@ public class TestController {
     @GetMapping(path = "/02")
     public Object test02() {
         return "1";
+    }
+
+    public static void main(String[] args) {
+        String a = "bb:aa/1,33";
+        System.out.println(Arrays.toString(Pattern.compile(":").split(a)));
     }
 
 }
