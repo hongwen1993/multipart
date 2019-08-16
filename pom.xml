@@ -35,6 +35,7 @@
         <module>multipart-dubbo-producer02</module>
         <module>multipart-dubbo-consumer</module>
         <module>multipart-dubbo-test-api</module>
+        <module>multipart-spring-kafka</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>
