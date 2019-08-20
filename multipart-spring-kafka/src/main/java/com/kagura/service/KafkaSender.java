@@ -3,8 +3,11 @@ package com.kagura.service;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.kagura.entity.Message;
+import org.apache.kafka.clients.producer.RecordMetadata;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.support.CompositeProducerListener;
+import org.springframework.kafka.support.ProducerListener;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
