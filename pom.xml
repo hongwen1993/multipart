@@ -36,6 +36,9 @@
         <module>multipart-dubbo-consumer</module>
         <module>multipart-dubbo-test-api</module>
         <module>multipart-spring-kafka</module>
+        <module>multipart-spring-redisson</module>
+        <module>multipart-jdk-version-test</module>
+        <module>multipart-sharding-sphere</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>
