@@ -40,6 +40,7 @@
         <module>multipart-jdk-version-test</module>
         <module>multipart-sharding-sphere</module>
         <module>multipart-xxl</module>
+        <module>multipart-spring-zookeeper</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>
