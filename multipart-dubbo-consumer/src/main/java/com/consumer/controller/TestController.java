@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/test")
 public class TestController {
 
-    @Reference
+    @Reference(mock = "com.kagura.service.UserServiceMock")
     private UserService userService;
-    @Reference
+    //@Reference
     private FoodService foodService;
-    @Reference
+    //@Reference
     private TestService testService;
 
 
@@ -31,6 +31,11 @@ public class TestController {
         System.out.println(userService.saveUser(1L));
         System.out.println(foodService.saveFood(2L));
         System.err.println(testService.getOne());
+    }
+
+    @GetMapping(path = "/02")
+    public void testMock() {
+        System.out.println(userService.saveUser(1L));
     }
 
 }

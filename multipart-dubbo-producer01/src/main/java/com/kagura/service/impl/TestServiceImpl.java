@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
  * @date 2019/8/15 14:22
  * @since 1.0.0
  */
-@Service(interfaceClass = TestService.class)
+@Service(interfaceClass = TestService.class, token = "123456")
 @Component
 public class TestServiceImpl implements TestService {
 

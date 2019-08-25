@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
  */
 // 注解@Service必须用在实现类上，而不能用在接口或者抽象类上
 // 且@Service并不会将该类实例化，还是需要使用注解@Component
-@Service(interfaceClass = UserService.class)
+@Service(interfaceClass = UserService.class, token = "123456")
 @Component
 public class UserServiceImpl implements UserService {
 
