@@ -1,10 +1,13 @@
 package com.netty.netty_demo01.test.test03;
 
 import io.netty.bootstrap.ServerBootstrap;
+import io.netty.buffer.Unpooled;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.DelimiterBasedFrameDecoder;
+import io.netty.handler.codec.FixedLengthFrameDecoder;
 import io.netty.handler.codec.LineBasedFrameDecoder;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
@@ -31,7 +34,7 @@ public class ServerBoot {
             bootstrap.childHandler(new ChannelInitializer<SocketChannel>() {
                         protected void initChannel(SocketChannel ch) throws Exception {
                             ChannelPipeline p = ch.pipeline();
-                            p.addLast(new LineBasedFrameDecoder(1024));
+                            p.addLast(new FixedLengthFrameDecoder(5));
                             p.addLast("decoder", new StringDecoder());
                             p.addLast("encoder", new StringEncoder());
                             p.addLast(new ServerHandler());

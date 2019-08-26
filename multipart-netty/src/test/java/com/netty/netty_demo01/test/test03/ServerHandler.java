@@ -18,7 +18,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
      */
     @Override
     public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
-//        logger.debug("channelRegistered()===>注册客户端Channel");
+        System.err.println("channelRegistered()===>注册客户端Channel");
     }
 
     /**
@@ -35,9 +35,8 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
      */
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
-        String text = "123456789\n\r\n";
-        ctx.write(text);
-        ctx.flush();
+        String text = "12345456456789$";
+        ctx.writeAndFlush(text);
     }
 
     /**
@@ -62,7 +61,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         super.exceptionCaught(ctx, cause);
-        ctx.close();
+        //ctx.close();
     }
 
     /**
@@ -71,9 +70,9 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelUnregistered(ChannelHandlerContext ctx) throws Exception {
         super.channelUnregistered(ctx);
-        ctx.close();
-        Collection<ChannelHandlerContext> collection = ServerHandler.CHANNELS.values();
-        collection.remove(ctx);
+        //ctx.close();
+        //Collection<ChannelHandlerContext> collection = ServerHandler.CHANNELS.values();
+        //collection.remove(ctx);
     }
 
 

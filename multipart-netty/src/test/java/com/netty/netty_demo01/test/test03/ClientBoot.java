@@ -1,10 +1,13 @@
 package com.netty.netty_demo01.test.test03;
 
 import io.netty.bootstrap.Bootstrap;
+import io.netty.buffer.Unpooled;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.codec.DelimiterBasedFrameDecoder;
+import io.netty.handler.codec.FixedLengthFrameDecoder;
 import io.netty.handler.codec.LineBasedFrameDecoder;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
@@ -39,28 +42,30 @@ public class ClientBoot {
                         @Override
                         public void initChannel(SocketChannel ch) throws Exception {
                             ChannelPipeline p = ch.pipeline();
-                            p.addLast(new LineBasedFrameDecoder(1024));
+                            p.addLast(new FixedLengthFrameDecoder(5));
                             p.addLast("decoder", new StringDecoder());
                             p.addLast("encoder", new StringEncoder());
                             p.addLast(new ClientHandler());
                         }
                     });
             connect();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         } finally {
 
         }
     }
 
-    public void connect(){
-        ChannelFuture future = bootstrap.connect();
+    public void connect() throws InterruptedException {
+        ChannelFuture future = bootstrap.connect().sync();
         // 监听连接状态, 并添加失败重连
         future.addListener((ChannelFutureListener) f -> {
             if (f.isSuccess()) {
-                String text = "668899\n\r\n";
+                String text = "664564567788899$";
                 f.channel().writeAndFlush(text);
                 f.channel().closeFuture();
             } else {
-                f.channel().eventLoop().schedule(this::connect, 1, TimeUnit.SECONDS);
+                //f.channel().eventLoop().schedule(this::connect, 1, TimeUnit.SECONDS);
             }
         });
 
