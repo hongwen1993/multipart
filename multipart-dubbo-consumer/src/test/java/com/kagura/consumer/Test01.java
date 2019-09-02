@@ -1,24 +1,20 @@
 package com.kagura.consumer;
 
 import java.util.LinkedList;
-import java.util.List;
 
 /**
+ * 关键点：
+ * 对象锁synchronized自旋 + LinkedList链表结构
+ * - 队列只有1条消息
  * @author <a href="mailto:hongwen0928@outlook.com">Karas</a>
  * @date 2019/8/28 7:19
  * @since 1.0.0
  */
-public class Consumer {
-
-
+public class Test01 {
     public LinkedList<String> list = new LinkedList<>();
-
-
-
     public static void main(String[] args) throws InterruptedException {
-
-        Consumer consumer = new Consumer();
-
+        Test01 consumer = new Test01();
+        // 生产者
         new Thread(() -> {
             while (true) {
                 synchronized (consumer) {
@@ -32,15 +28,14 @@ public class Consumer {
                 }
             }
         }).start();
-
         Thread.sleep(1500);
+        // 消费者
         new Thread(() -> {
             while (true) {
                 synchronized (consumer) {
                     System.err.println(consumer.list.poll());
                     consumer.notifyAll();
                     try {
-
                         consumer.wait();
                         Thread.sleep(5000);
                     } catch (InterruptedException e) {

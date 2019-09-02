@@ -2,6 +2,8 @@ package com.kagura;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.CyclicBarrier;
 
 /**
  * @author <a href="mailto:hongwen0928@outlook.com">Karas</a>
@@ -13,6 +15,6 @@ public class Test01 {
     public static void main(String[] args) {
         Map<String, String> map = new HashMap<>();
         map.put("1", "2");
-
+        CountDownLatch countDownLatch = new CountDownLatch(1);
     }
 }
