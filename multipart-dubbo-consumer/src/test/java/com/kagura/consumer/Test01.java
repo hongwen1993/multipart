@@ -5,6 +5,7 @@ import java.util.LinkedList;
 /**
  * 关键点：
  * 对象锁synchronized自旋 + LinkedList链表结构
+ * （当然可以使用其他阻塞锁来实现）
  * - 队列只有1条消息
  * @author <a href="mailto:hongwen0928@outlook.com">Karas</a>
  * @date 2019/8/28 7:19
