@@ -13,7 +13,7 @@ public class RecurveMax {
         if (L == R) {
             return arr[L];
         }
-        int mid = (L + R) / 2;
+        int mid = L + (R - L >> 1);
         int maxLeft = max(arr, L, mid);
         int maxRight = max(arr, mid + 1, R);
         return Math.max(maxLeft, maxRight);
@@ -23,7 +23,7 @@ public class RecurveMax {
         if (L == R) {
             return arr[L];
         }
-        int mid = (L + R) >> 1;
+        int mid = L + (R - L >> 1);
         int minLeft = min(arr, L, mid);
         int minRight = min(arr, mid + 1, R);
         return Math.min(minLeft, minRight);
