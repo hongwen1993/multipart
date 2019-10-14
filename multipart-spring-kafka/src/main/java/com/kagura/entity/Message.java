@@ -1,7 +1,5 @@
 package com.kagura.entity;
 
-import lombok.Data;
-
 import java.util.Date;
 
 /**
