@@ -33,7 +33,7 @@
     </dependencies>
 
     <build>
-        <finalName>multipart-springboot-test</finalName>
+        <finalName>test</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

@@ -10,13 +10,13 @@ import com.netflix.hystrix.HystrixCommandGroupKey;
  */
 public class TestHystrixCommand extends HystrixCommand<String> {
 
-    protected TestHystrixCommand() {
+    public TestHystrixCommand() {
         super(HystrixCommandGroupKey.Factory.asKey("test"));
     }
 
     @Override
     protected String run() throws Exception {
-        Thread.sleep(1000);
+        //Thread.sleep(1000);
         return "success";
     }
 
@@ -28,6 +28,7 @@ public class TestHystrixCommand extends HystrixCommand<String> {
     }
 
     public static void main(String[] args) {
+        // 调用TestHystrixCommand 的execute执行实际方法
         TestHystrixCommand command = new TestHystrixCommand();
         System.err.println(command.execute());
     }
