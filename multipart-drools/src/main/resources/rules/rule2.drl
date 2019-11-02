@@ -1,5 +1,7 @@
 package rules;
 
+
+
 rule "rule 01"
 when
     $d:Double($d == 0)

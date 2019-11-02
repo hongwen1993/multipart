@@ -17,7 +17,7 @@ public class TestController {
     @RequestMapping("/01")
     public String test01() throws Exception {
         KieSession kieSession = KieSessionUtils.newKieSession("D:\\_Temp\\rule.drl");
-        kieSession.insert(999d);
+        kieSession.insert("TTD");
         kieSession.fireAllRules();
         return "OK";
     }

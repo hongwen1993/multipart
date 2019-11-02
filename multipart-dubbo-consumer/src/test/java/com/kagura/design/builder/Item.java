@@ -11,4 +11,5 @@ public interface Item {
     // 使用桥接模式分离Packing
     Packing packing();
     float price();
+    
 }
