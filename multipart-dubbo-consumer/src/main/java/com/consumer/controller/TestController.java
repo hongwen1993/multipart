@@ -19,13 +19,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/test")
 public class TestController {
 
-    @Reference
+    @Reference(check = false, timeout = 60000)
     private UserService userService;
     //@Reference
     //private FoodService foodService;
-    @Reference
+    @Reference(check = false, timeout = 60000)
     private TestService testService;
-    @Reference
+    @Reference(check = false, timeout = 60000)
     private StudentService studentService;
 
 

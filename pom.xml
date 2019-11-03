@@ -42,6 +42,7 @@
         <module>multipart-xxl</module>
         <module>multipart-spring-zookeeper</module>
         <module>multipart-springboot-ssl</module>
+        <module>multipart-dubbo-consumer-provider</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>
