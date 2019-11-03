@@ -1,0 +1,4 @@
+server:
+  port: 8012
+test:
+  env: ${Karas:172.16.0.97}

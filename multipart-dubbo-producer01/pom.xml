@@ -36,6 +36,7 @@
             <artifactId>zkclient</artifactId>
             <version>0.10</version>
         </dependency>
+        <!-- 全局api -->
         <dependency>
             <groupId>com.kaguya</groupId>
             <artifactId>multipart-dubbo-test-api</artifactId>
