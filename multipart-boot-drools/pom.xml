@@ -12,6 +12,7 @@
     <artifactId>multipart-boot-drools</artifactId>
     <packaging>jar</packaging>
 
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -26,7 +27,19 @@
             <artifactId>fast-drools-spring-boot-starter</artifactId>
             <version>2.0.6</version>
         </dependency>
-
+        <!-- lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.8</version>
+        </dependency>
+        <!-- guava -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>22.0</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
 
