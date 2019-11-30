@@ -1,14 +1,13 @@
-package com.kagura;
+package com.kagura.listener;
 
 import com.drools.core.KieTemplate;
+import com.kagura.Base;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.kie.api.event.rule.*;
 import org.kie.api.runtime.KieSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -17,9 +16,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @date 2019/8/8
  * @since 1.0.0
  */
-@RunWith(SpringRunner.class)
-@SpringBootTest
-public class Test01 {
+public class EventListener extends Base {
 
     public static volatile AtomicInteger RIGHT = new AtomicInteger(0);
     public static volatile AtomicInteger COUNT = new AtomicInteger(0);
