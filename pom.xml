@@ -45,6 +45,7 @@
         <module>multipart-dubbo-consumer-provider</module>
         <module>multipart-mybatis</module>
         <module>multipart-boot-drools</module>
+        <module>multipart-demo</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>

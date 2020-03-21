@@ -9,9 +9,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>multipart-boot-drools</artifactId>
+    <artifactId>multipart-demo</artifactId>
     <packaging>jar</packaging>
-
 
     <dependencies>
         <dependency>
@@ -22,50 +21,10 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.github.hongwen1993</groupId>
-            <artifactId>fast-drools-spring-boot-starter</artifactId>
-            <version>2.0.6</version>
-        </dependency>
-        <!-- lombok -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.8</version>
-        </dependency>
-        <!-- guava -->
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>22.0</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>de.adorsys.ledgers</groupId>
-            <artifactId>ledgers-middleware-service-api</artifactId>
-            <version>2.8</version>
-        </dependency>
-
-        <dependency>
-            <groupId>cn.biosan</groupId>
-            <artifactId>saas-common-tools</artifactId>
-            <version>1.3.0.7</version>
-        </dependency>
     </dependencies>
 
-
-
-
-
-
-
-
-
-
-
     <build>
-        <finalName>multipart-boot-drools</finalName>
+        <finalName>multipart-springboot-base</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

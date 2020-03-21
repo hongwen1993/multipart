@@ -27,7 +27,7 @@ public class Second extends Base{
 
     private Object object;
 
-    // @Before => @Test => @After
+    // @Before => @Test01 => @After
     @Before
     public void before() throws InterruptedException {
         Thread.sleep(1000);
