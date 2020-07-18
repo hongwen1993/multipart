@@ -29,3 +29,8 @@ multipart-springboot-rabbitmq-producer/src/main/java/kagura/controller/
 multipart-springboot-rabbitmq-producer/src/main/java/kagura/service/
 multipart-springboot-test/src/main/java/com/kagura/service/
 multipart-springboot-test/src/test/
+multipart-demo/src/main/java/com/kagura/util/
+multipart-mybatis/src/main/java/com/kagura/dao/UserInfoMapper.java
+multipart-mybatis/src/main/java/com/kagura/model/UserInfo.java
+multipart-mybatis/src/main/resources/mapper/UserInfoMapper.xml
+multipart-redis-demo/src/

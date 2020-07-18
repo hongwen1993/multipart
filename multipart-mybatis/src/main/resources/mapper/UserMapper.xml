@@ -22,9 +22,9 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.kagura.model.User" useGeneratedKeys="true">
-    insert into user (`name`, age, detail, 
+    insert into user (`name`, age, detail,
       code)
-    values (#{name,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, #{detail,jdbcType=VARCHAR}, 
+    values (#{name,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, #{detail,jdbcType=VARCHAR},
       #{code,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.kagura.model.User" useGeneratedKeys="true">
@@ -84,4 +84,7 @@
       code = #{code,jdbcType=BIGINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+
+
 </mapper>

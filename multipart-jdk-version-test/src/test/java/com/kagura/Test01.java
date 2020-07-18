@@ -13,8 +13,20 @@ import java.util.concurrent.CyclicBarrier;
 public class Test01 {
 
     public static void main(String[] args) {
-        Map<String, String> map = new HashMap<>();
-        map.put("1", "2");
-        CountDownLatch countDownLatch = new CountDownLatch(1);
+
+        for (int i = 0; i < 0; i++) {
+            System.out.println(1);
+        }
+
+        for (int i = 0; i < 1; i++) {
+            System.out.println(1);
+        }
+
+        //Map<String, String> map = new HashMap<>();
+        //map.put("1", "2");
+        //CountDownLatch countDownLatch = new CountDownLatch(1);
+
     }
+
+
 }

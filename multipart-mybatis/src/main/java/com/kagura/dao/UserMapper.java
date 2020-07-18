@@ -1,6 +1,8 @@
 package com.kagura.dao;
+import java.util.List;
 
 import com.kagura.model.User;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -16,4 +18,9 @@ public interface UserMapper {
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
+
+
+
+
+
 }
