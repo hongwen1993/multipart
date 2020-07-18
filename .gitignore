@@ -1,36 +1,6 @@
 # Created by .ignore support plugin (hsz.mobi)
 
 .idea/
-multipart-service2/multipart-service2.iml
-multipart-service2/target/generated-sources/
 *.iml
-multipart-client/target/generated-sources/
-multipart-client/target/generated-test-sources/
-multipart-client1/target/generated-sources/
-multipart-config-service/target/generated-sources/
-multipart-entity/target/generated-sources/
-multipart-entity/target/generated-test-sources/
-multipart-eureka/target/generated-sources/
-multipart-service1/target/generated-sources/
 **/target
-multipart-drools/src/main/java/com/kagura/service/
-multipart-dubbo-consumer-provider/src/test/
-multipart-dubbo-consumer/src/test/java/com/kagura/block/
-multipart-dubbo-consumer/src/test/java/com/kagura/design/observer/
-multipart-jdk-version-test/src/main/
-multipart-mybatis/src/main/java/com/kagura/service/
-multipart-netty/src/main/java/com/kagura/controller/
-multipart-rabbitmq/src/main/java/kagura/controller/
-multipart-rabbitmq/src/test/
-multipart-spring-redisson/src/main/java/kagura/controller/
-multipart-spring-redisson/src/main/java/kagura/service/
-multipart-springboot-rabbitmq-producer/src/main/java/kagura/config/
-multipart-springboot-rabbitmq-producer/src/main/java/kagura/controller/
-multipart-springboot-rabbitmq-producer/src/main/java/kagura/service/
-multipart-springboot-test/src/main/java/com/kagura/service/
-multipart-springboot-test/src/test/
-multipart-demo/src/main/java/com/kagura/util/
-multipart-mybatis/src/main/java/com/kagura/dao/UserInfoMapper.java
-multipart-mybatis/src/main/java/com/kagura/model/UserInfo.java
-multipart-mybatis/src/main/resources/mapper/UserInfoMapper.xml
-multipart-redis-demo/src/
+
