@@ -35,10 +35,10 @@ public class RedisDemoApplication extends SpringBootServletInitializer {
 
         // 使用Jackson2JsonRedisSerialize 替换默认序列化
         // 设置value的序列化规则和 key的序列化规则
-        redisTemplate.setValueSerializer(SerializerUtils.getJacksonSerializer());
         redisTemplate.setKeySerializer(new StringRedisSerializer());
-        redisTemplate.setHashValueSerializer(SerializerUtils.getJacksonSerializer());
+        redisTemplate.setValueSerializer(SerializerUtils.getJacksonSerializer());
         redisTemplate.setHashKeySerializer(new StringRedisSerializer());
+        redisTemplate.setHashValueSerializer(SerializerUtils.getJacksonSerializer());
         redisTemplate.afterPropertiesSet();
         return redisTemplate;
     }
