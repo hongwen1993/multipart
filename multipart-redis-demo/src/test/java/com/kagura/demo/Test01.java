@@ -17,7 +17,10 @@ public class Test01 extends BaseTest {
 
     @Test
     public void test01() {
-        redisTemplate.opsForValue().set("charge", "123456");
+        long a = System.currentTimeMillis();
+        redisTemplate.opsForValue().set("charge", "1234567");
+        long b = System.currentTimeMillis();
+        System.out.println(b - a);
         Object charge = redisTemplate.opsForValue().get("charge");
         System.out.println(charge);
     }
