@@ -21,6 +21,7 @@ public class MyServer {
                     .childHandler(new MyServerInitializer());
             ChannelFuture channelFuture = serverBootstrap.bind(8899).sync();
             channelFuture.channel().closeFuture().sync();
+            System.out.println(1);
         } finally {
             bossGroup.shutdownGracefully();
             workerGroup.shutdownGracefully();

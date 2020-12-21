@@ -1,6 +1,7 @@
 package com.kagura.demo;
 
 import com.kagura.BaseTest;
+import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -23,6 +24,14 @@ public class Test01 extends BaseTest {
         System.out.println(b - a);
         Object charge = redisTemplate.opsForValue().get("charge");
         System.out.println(charge);
+    }
+
+    @Test
+    public void test02() {
+        if (StringUtils.isNotBlank("1")
+                && StringUtils.isNotBlank("222")) {
+            System.out.println(1);
+        }
     }
 
 
