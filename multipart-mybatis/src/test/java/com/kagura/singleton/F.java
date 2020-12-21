@@ -9,7 +9,10 @@ import java.util.concurrent.atomic.AtomicReference;
  */
 public class F {
 
-    private static final AtomicReference<Object> instance;
+    /**
+     * 增加 transient 禁用序列化序列化
+     */
+    private transient static final AtomicReference<Object> instance;
 
     private F() {
     }
@@ -52,8 +55,8 @@ public class F {
 //            if(instance != null) {
 //                return instance;
 //            }
-//            instance = new Singleton();
-//            if(INSTANCE.compareAndSet(null, instance)) {
+//            Singleton temp = new Singleton();
+//            if(INSTANCE.compareAndSet(null, temp)) {
 //                return instance;
 //            }
 //        }
