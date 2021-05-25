@@ -18,6 +18,6 @@ public class UserInfoServiceTest extends BaseTest {
 
     @Test
     public void selectByPrimaryKey() {
-        System.out.println(userInfoService.selectByPrimaryKey(1000002));
+        //System.out.println(userInfoService.selectByPrimaryKey(1000002));
     }
 }

@@ -4,6 +4,9 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import com.kagura.model.UserInfo;
 import com.kagura.dao.UserInfoMapper;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
 /**
  * $description
  * 
@@ -17,34 +20,14 @@ public class UserInfoService{
     @Resource
     private UserInfoMapper userInfoMapper;
 
-    
-    public int deleteByPrimaryKey(Integer id) {
-        return userInfoMapper.deleteByPrimaryKey(id);
+    // REQUIRED  REQUIRES_NEW  NESTED
+    @Transactional(propagation = Propagation.NESTED, rollbackFor = Exception.class)
+    public void f() {
+        UserInfo userInfo = userInfoMapper.selectByPrimaryKey(1000002);
+        userInfo.setName("b");
+        userInfoMapper.updateByPrimaryKey(userInfo);
+        int a = 0/0;
     }
 
-    
-    public int insert(UserInfo record) {
-        return userInfoMapper.insert(record);
-    }
-
-    
-    public int insertSelective(UserInfo record) {
-        return userInfoMapper.insertSelective(record);
-    }
-
-    
-    public UserInfo selectByPrimaryKey(Integer id) {
-        return userInfoMapper.selectByPrimaryKey(id);
-    }
-
-    
-    public int updateByPrimaryKeySelective(UserInfo record) {
-        return userInfoMapper.updateByPrimaryKeySelective(record);
-    }
-
-    
-    public int updateByPrimaryKey(UserInfo record) {
-        return userInfoMapper.updateByPrimaryKey(record);
-    }
 
 }
