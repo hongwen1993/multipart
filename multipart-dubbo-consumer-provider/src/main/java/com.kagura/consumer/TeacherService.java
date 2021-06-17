@@ -7,6 +7,6 @@ package com.kagura.consumer;
  */
 public interface TeacherService {
 
-    String getTeacher(Long id);
+    String getTeacher(Long id) throws InterruptedException;
 
 }

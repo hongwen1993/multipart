@@ -10,11 +10,13 @@ import org.springframework.stereotype.Component;
  * @since 1.0.0
  */
 @Component
-@Service
+@Service(timeout = 3000)
 public class TeacherServiceImpl implements TeacherService {
     @Override
-    public String getTeacher(Long id) {
+    public String getTeacher(Long id) throws InterruptedException {
         System.err.println("执行getTeacher");
+        Thread.sleep(6000);
+        System.out.println("等待了6秒，继续执行");
         return "获得" + id + "号老师数据";
     }
 }

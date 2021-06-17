@@ -16,12 +16,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/test")
 public class TestController {
 
-    @Reference(check = false, timeout = 60000)
+    @Reference(check = false, timeout = 2000)// , timeout = 2000
     private TeacherService teacherService;
 
     @GetMapping("/01")
-    public void test01(@RequestParam Long id) {
+    public void test01(@RequestParam Long id) throws InterruptedException {
+        //Thread.sleep(3000);
+        System.out.println("虽暂停，仍执行。");
         System.err.println(teacherService.getTeacher(id));
+    }
+
+    public static void main(String[] args) {
     }
 
 }

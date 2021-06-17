@@ -3,7 +3,6 @@ package com.kagura.controller;
 import com.kagura.dao.UserInfoMapper;
 import com.kagura.dao.UserMapper;
 import com.kagura.model.User;
-import com.kagura.model.UserInfo;
 import com.kagura.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
