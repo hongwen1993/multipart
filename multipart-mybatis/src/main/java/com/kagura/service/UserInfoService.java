@@ -1,5 +1,7 @@
 package com.kagura.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import com.kagura.model.UserInfo;
@@ -20,13 +22,17 @@ public class UserInfoService{
     @Resource
     private UserInfoMapper userInfoMapper;
 
+    @Autowired
+    private DataSourceTransactionManager dataSourceTransactionManager;
+
     // REQUIRED  REQUIRES_NEW  NESTED
-    @Transactional(propagation = Propagation.NESTED, rollbackFor = Exception.class)
+    @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = Exception.class)
     public void f() {
+        dataSourceTransactionManager.setNestedTransactionAllowed(true);
         UserInfo userInfo = userInfoMapper.selectByPrimaryKey(1000002);
         userInfo.setName("b");
         userInfoMapper.updateByPrimaryKey(userInfo);
-        int a = 0/0;
+        //int a = 0/0;
     }
 
 

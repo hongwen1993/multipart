@@ -47,6 +47,7 @@
         <module>multipart-boot-drools</module>
         <module>multipart-demo</module>
         <module>multipart-redis-demo</module>
+        <module>multi-optimizing-java-test</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>

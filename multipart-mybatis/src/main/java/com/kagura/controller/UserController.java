@@ -36,17 +36,24 @@ public class UserController {
     private DataSourceTransactionManager dataSourceTransactionManager;
 
     // REQUIRED  REQUIRES_NEW  NESTED
-    @Transactional(propagation = Propagation.NESTED, rollbackFor = Exception.class)
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     @GetMapping("/01")
     public Object test01() {
+
+
         dataSourceTransactionManager.setNestedTransactionAllowed(true);
         // 更新 user
         User user = userMapper.selectByPrimaryKey(1);
         user.setName("b");
         userMapper.updateByPrimaryKey(user);
+
         // 更新 user_info
         userInfoService.f();
-        //int a = 0/0;
+
+        //// 更新 user_info
+        //userInfoService.f();
+
+        int a = 0/0;
         return "success";
     }
 
