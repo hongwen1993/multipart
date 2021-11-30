@@ -1,6 +1,6 @@
 package com.kagura.temp;
 
-import lombok.ToString;
+import org.junit.Test;
 
 /**
  * @author <a href="mailto:hongwen0928@outlook.com">Karas</a>
@@ -11,19 +11,6 @@ public class Test02 {
 
 
     static class Solution07 {
-        public static class ListNode {
-            int val;
-            ListNode next;
-            ListNode(int x) { val = x; }
-
-            @Override
-            public String toString() {
-                final StringBuilder sb = new StringBuilder();
-                sb.append(val);
-                if (next != null) sb.append("->").append(next);
-                return sb.toString();
-            }
-        }
 
         // 1->2->4, temp->1->3->4
         // 1->1->2->3->4->4
@@ -93,6 +80,20 @@ public class Test02 {
 
     }
 
+    public static class ListNode {
+
+        int val;
+        ListNode next;
+        ListNode(int x) { val = x; }
+
+        @Override
+        public String toString() {
+            final StringBuilder sb = new StringBuilder();
+            sb.append(val);
+            if (next != null) sb.append("->").append(next);
+            return sb.toString();
+        }
+    }
 
     public static class Node {
         int val;
@@ -117,6 +118,19 @@ public class Test02 {
         n1.next = n3.next;
         // 3->1->4
         n3.next = n1;
+    }
+
+    // 目标和
+    class Solution202111252246 {
+        public int findTargetSumWays(int[] nums, int target) {
+
+            return -1;
+        }
+    }
+
+    @Test
+    public void test202111252246() {
+
     }
 
 
