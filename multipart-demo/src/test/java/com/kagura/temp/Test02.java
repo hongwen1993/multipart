@@ -2,6 +2,8 @@ package com.kagura.temp;
 
 import org.junit.Test;
 
+import java.util.*;
+
 /**
  * @author <a href="mailto:hongwen0928@outlook.com">Karas</a>
  * @date 2021/11/2
@@ -128,9 +130,150 @@ public class Test02 {
         }
     }
 
-    @Test
-    public void test202111252246() {
 
+    static class Solution202112032318 {
+
+        public static void main(String[] args) {
+            String[] s = permutation("abc");
+            System.out.println(Arrays.toString(s));
+            s = permutation("abcdefg");
+            System.out.println(Arrays.toString(s));
+        }
+
+        static int LEN = 0;
+
+        static Set<String> list = new HashSet<>();
+
+        public static String[] permutation(String s) {
+            list.add(s);
+            LEN = s.length() - 1;
+            myFun(s, LEN);
+            return list.toArray(new String[]{});
+        }
+
+        static void myFun(String s, int cursor) {
+
+            // 越过左边界
+            if (cursor - 1 < 0) {
+                myFun(s, LEN);
+                return;
+            }
+
+            String swap = swap(s, cursor);
+
+            if (list.contains(swap)) {
+                return;
+            }
+            list.add(swap);
+            myFun(swap, --cursor);
+        }
+
+        static String swap(String s, int cursor) {
+            char[] chars = s.toCharArray();
+            char current = chars[cursor];
+            char next = chars[cursor - 1];
+            chars[cursor] = next;
+            chars[cursor - 1] = current;
+            StringBuilder sb = new StringBuilder();
+            for (char c : chars) {
+                sb.append(c);
+            }
+            return sb.toString();
+        }
+
+
+    }
+
+    static class AllArrangement {
+
+
+        /**
+         * 1234
+         * 1243
+         * 1423
+         * 4123
+         * 4132
+         * 4312
+         * 3412
+         * 3421
+         * 3241
+         * 2341
+         * 2314
+         * 2134
+         */
+        static final String S = "abcdefgh";
+        static final int LEN = S.length() - 1;
+        static List<String> list = new ArrayList<>();
+
+        public static void main(String[] args) {
+
+            list.add(S);
+            myFun(S, LEN);
+            System.out.println(list);
+        }
+
+        static void myFun(String s, int cursor) {
+
+            // 越过左边界
+            if (cursor - 1 < 0) {
+                myFun(s, LEN);
+                return;
+            }
+
+            String swap = swap(s, cursor);
+
+            if (list.contains(swap)) {
+                return;
+            }
+            list.add(swap);
+            myFun(swap, --cursor);
+        }
+
+        static String swap(String s, int cursor) {
+            char[] chars = s.toCharArray();
+            char current = chars[cursor];
+            char next = chars[cursor - 1];
+            chars[cursor] = next;
+            chars[cursor - 1] = current;
+            StringBuilder sb = new StringBuilder();
+            for (char c : chars) {
+                sb.append(c);
+            }
+            return sb.toString();
+        }
+
+    }
+
+    static class Solution202112040218 {
+        public static void main(String[] args) {
+            System.out.println(Arrays.toString(permutation("abcdefgh")));
+        }
+        @Test
+        public void show() {
+
+        }
+        public static String[] permutation(String s) {
+            char[] chars = s.toCharArray();
+            List<Character> rest = new ArrayList<>();
+            for (char c : chars) {
+                rest.add(c);
+            }
+            Set<String> result = new HashSet<>();
+            choseAppend(rest, result, "");
+            return result.toArray(new String[]{});
+        }
+
+        public static void choseAppend(List<Character> rest, Set<String> result, String path) {
+            if (rest.isEmpty()) {
+                result.add(path);
+                return;
+            }
+            for (int i = 0; i < rest.size(); i++) {
+                Character c = rest.remove(i);
+                choseAppend(rest, result, path + c);
+                rest.add(i, c);
+            }
+        }
     }
 
 
