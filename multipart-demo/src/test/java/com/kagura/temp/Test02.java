@@ -276,5 +276,185 @@ public class Test02 {
         }
     }
 
+    class Solution202112092123 {
+
+        public void reverse(Deque<Integer> stack) {
+            if (stack.isEmpty()) return;
+            int i = f(stack);
+            reverse(stack);
+            stack.push(i);
+        }
+
+        /**
+         * 1. 栈底元素移除掉。
+         * 2. 上面的元素盖下来。
+         * 3. 返回移除掉的栈底元素。
+         *
+         */
+        public int f(Deque<Integer> stack) {
+            int num = stack.pop();
+            if (stack.isEmpty()) return num;
+            int last = f(stack);
+            stack.push(num);
+            return last;
+        }
+
+
+    }
+
+
+    /**
+     * 编辑距离
+     */
+    // 递归
+    static class Solution202112091650 {
+
+        public int minDistance(String word1, String word2) {
+            char[] chars1 = word1.toCharArray();
+            char[] chars2 = word2.toCharArray();
+            return f(chars1, chars2, 0, 0, 0);
+        }
+
+        public int f(char[] chars1, char[] chars2, int cur1, int cur2, int n) {
+            // base case
+            if (cur1 == chars1.length && cur2 != chars2.length) {
+                return n + (chars2.length - cur2);
+            }
+            if (cur1 != chars1.length && cur2 == chars2.length) {
+                return n + (chars1.length - cur1);
+            }
+            if (cur1 == chars1.length && cur2 == chars2.length) {
+                return n;
+            }
+            int max = Math.max(chars1.length, chars2.length);
+            int a = max, b = max, c = max, d = max;
+            if (chars1[cur1] == chars2[cur2]) {
+                // 相同
+                a = f(chars1, chars2, cur1 + 1, cur2 + 1, n);
+            } else {
+                // 不同
+                // - 增
+                b = f(chars1, chars2, cur1, cur2 + 1, n + 1);
+                // - 删
+                c = f(chars1, chars2, cur1 + 1, cur2, n + 1);
+                // - 改
+                d = f(chars1, chars2, cur1 + 1, cur2 + 1, n + 1);
+            }
+            return Math.min(a, Math.min(b, Math.min(c, d)));
+        }
+
+        public static void main(String[] args) {
+            Solution202112091650 s = new Solution202112091650();
+            System.out.println(s.minDistance("dinitrophenylhydrazine", "acetylphenylhydrazine"));
+        }
+
+
+
+    }
+
+    /**
+     * 编辑距离
+     */
+    // 动态规划
+    static class Solution202112092223 {
+
+        public int minDistance(String word1, String word2) {
+            char[] chars1 = word1.toCharArray();
+            char[] chars2 = word2.toCharArray();
+            // 如果不好初始化，比如最终结果可能是任意整型，那就不要用 int[][] 作为 DP Table（缓存表）。
+            // 但是 map 可能会超时？
+            int[][] dp = new int[chars1.length][chars2.length];
+            for (int i = 0; i < chars1.length; i++) {
+                for (int j = 0; j < chars2.length; j++) {
+                    dp[i][j] = -1;
+                }
+            }
+            return f(chars1, chars2, 0, 0, 0, dp);
+        }
+
+        public int f(char[] chars1, char[] chars2, int cur1, int cur2, int n, int[][] dp) {
+            // base case
+            if (cur1 == chars1.length) {
+                return n + (chars2.length - cur2);
+            }
+            if (cur2 == chars2.length) {
+                return n + (chars1.length - cur1);
+            }
+            //  && n > dp[cur1][cur2]
+            if (dp[cur1][cur2] != -1) {
+                return dp[cur1][cur2];
+            }
+            // process
+            if (chars1[cur1] == chars2[cur2]) {
+                dp[cur1][cur2] = f(chars1, chars2, cur1 + 1, cur2 + 1, n, dp);
+            } else {
+                int a = f(chars1, chars2, cur1, cur2 + 1, n + 1, dp);
+                int b = f(chars1, chars2, cur1 + 1, cur2, n + 1, dp);
+                int c = f(chars1, chars2, cur1 + 1, cur2 + 1, n + 1, dp);
+                int min = Math.min(a, Math.min(b, c));
+                dp[cur1][cur2] = min;
+            }
+
+            return dp[cur1][cur2];
+        }
+
+        public static void main(String[] args) {
+            Solution202112092223 s = new Solution202112092223();
+            System.out.println(s.minDistance("pneumonoultramicroscopicsilicovolcanoconiosis", "ultramicroscopically"));
+        }
+    }
+
+    // 先通过二分法找到为止，然后左边找，右边找。
+    static class Solution2202112142318 {
+
+        public int search(int[] nums, int target) {
+            if (nums.length == 0) return 0;
+            int index = getTargetIndex(nums, target);
+            if (index == -1) return 0;
+            int n = index - 1;
+            int count = 1;
+            while (n >= 0 && nums[n] == target) {
+                count++;
+                n--;
+            }
+            n = index + 1;
+            while (n <= nums.length - 1 && nums[n] == target) {
+                count++;
+                n++;
+            }
+            return count;
+        }
+
+        public int getTargetIndex(int[] nums, int target) {
+            int left = 0;
+            int right = nums.length - 1;
+
+            if (nums[0] > target || nums[right] < target) return -1;
+            if (nums[0] == target) return 0;
+            if (nums[right] == target) return right;
+
+            while (left <= right) {
+                int mid = left + ((right - left) >>> 1);
+                int num = nums[mid];
+                if (num == target) return mid;
+                if (num < target) left = mid + 1;
+                if (num > target) right = mid - 1;
+            }
+            return -1;
+        }
+
+        public static void main(String[] args) {
+            Solution2202112142318 s = new Solution2202112142318();
+            System.out.println(s.search(new int[]{5, 7, 7, 8, 8, 10}, 6));
+        }
+    }
+
+    class Solution202112150009 {
+        public String reverseLeftWords(String s, int n) {
+            return s.substring(n, s.length()) + s.substring(0, n);
+        }
+    }
+
+
 
 }
