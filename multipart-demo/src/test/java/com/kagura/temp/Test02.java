@@ -86,7 +86,10 @@ public class Test02 {
 
         int val;
         ListNode next;
-        ListNode(int x) { val = x; }
+
+        ListNode(int x) {
+            val = x;
+        }
 
         @Override
         public String toString() {
@@ -100,6 +103,7 @@ public class Test02 {
     public static class Node {
         int val;
         Node next;
+
         Node(int x) {
             val = x;
         }
@@ -248,10 +252,12 @@ public class Test02 {
         public static void main(String[] args) {
             System.out.println(Arrays.toString(permutation("abcdefgh")));
         }
+
         @Test
         public void show() {
 
         }
+
         public static String[] permutation(String s) {
             char[] chars = s.toCharArray();
             List<Character> rest = new ArrayList<>();
@@ -289,7 +295,6 @@ public class Test02 {
          * 1. 栈底元素移除掉。
          * 2. 上面的元素盖下来。
          * 3. 返回移除掉的栈底元素。
-         *
          */
         public int f(Deque<Integer> stack) {
             int num = stack.pop();
@@ -347,7 +352,6 @@ public class Test02 {
             Solution202112091650 s = new Solution202112091650();
             System.out.println(s.minDistance("dinitrophenylhydrazine", "acetylphenylhydrazine"));
         }
-
 
 
     }
@@ -455,6 +459,84 @@ public class Test02 {
         }
     }
 
+    // X . . X
+    // X . . X
+    // . . . X
+    // . . . .
+    class Solution202112181943 {
+
+        // X . . X
+        // X . . X
+        // . . . X
+        // . . . .
+        public int countBattleships(char[][] board) {
+            int result = 0;
+            for (int i = 0; i < board.length; i++) {
+                for (int j = 0; j < board[i].length; j++) {
+                    char c = board[i][j];
+                    if (c == 'X') {
+                        // 每次遇到 X 就开始感染，计数器自增
+                        result++;
+                        f(board, i, j);
+                    }
+                }
+            }
+            return result;
+        }
+
+        public void f(char[][] board, int i, int j) {
+            if (i == board.length || j == board[0].length || board[i][j] == '.') return;
+            // 感染
+            if (board[i][j] == 'X') board[i][j] = '.';
+            f(board, i + 1, j);
+            f(board, i, j + 1);
+        }
+
+    }
+
+    static class Solution20211218 {
+        public static void main(String[] args) {
+            Solution20211218 s = new Solution20211218();
+            System.out.println(Arrays.toString(s.twoSum(new int[]{3, 2, 4}, 6)));
+        }
+
+        public int[] twoSum(int[] nums, int target) {
+            Arrays.sort(nums);
+            System.out.println(Arrays.toString(nums));
+            return f(nums, target);
+        }
+        public int[] f(int[] nums, int target) {
+            int left = 0;
+            int right = nums.length - 1;
+            while (left < right) {
+                int sum = nums[left] + nums[right];
+                if (sum < target) left++;
+                if (sum > target) right--;
+                if (sum == target) return new int[]{left, right};
+            }
+            return new int[0];
+        }
+
+
+        public int[] twoSum(int[] nums, int target, int bak) {
+            // 空间换时间
+            Map<Integer, Integer> map = new HashMap<>();
+            for (int i = 0; i < nums.length; i++) {
+                if (map.containsKey(target - nums[i])) {
+                    return new int[]{map.get(target - nums[i]), i};
+                }
+                map.put(nums[i], i);
+            }
+            return new int[0];
+        }
+    }
+
+    class Solution202112190148 {
+        public int findKthLargest(int[] nums, int k) {
+            Arrays.sort(nums);
+            return nums[nums.length - k];
+        }
+    }
 
 
 }
