@@ -538,5 +538,51 @@ public class Test02 {
         }
     }
 
+    // n = 4, trust = [[1,3],[1,4],[2,3],[2,4],[4,3]]
+    static class Solution202112191419 {
+        public static void main(String[] args) {
+            Solution202112191419 s = new Solution202112191419();
+            int[][] trust = new int[][]{{1, 3}, {2, 3}};
+            System.out.println(s.findJudge(3, trust));
+
+            int[] a = new int[10];
+            for (int i = 0; i < a.length; i++) {
+                System.out.println(a[i]);
+            }
+        }
+        public int findJudge(int n, int[][] trust) {
+            if (n == 1 && trust.length == 0) return 1;
+            if (n > 1 && trust.length == 0) return -1;
+            if (trust.length == 1) return trust[0][1];
+            Map<Integer, Integer> td = new HashMap<>();
+            Set<Integer> t = new HashSet<>();
+            for (int[] ints : trust) {
+                t.add(ints[0]);
+                td.merge(ints[1], 1, Integer::sum);
+            }
+            for (Map.Entry<Integer, Integer> entry : td.entrySet()) {
+                Integer key = entry.getKey();
+                if (entry.getValue() == (n - 1) && !t.contains(key)) return key;
+            }
+            return -1;
+        }
+
+        class Solution {
+            public int findJudge(int n, int[][] trust, int x) {
+                int[] in = new int[n + 1], out = new int[n + 1];
+                for (int[] t : trust) {
+                    int a = t[0], b = t[1];
+                    in[b]++; out[a]++;
+                }
+                for (int i = 1; i <= n; i++) {
+                    if (in[i] == n - 1 && out[i] == 0) return i;
+                }
+                return -1;
+            }
+        }
+    }
+
+
+
 
 }
