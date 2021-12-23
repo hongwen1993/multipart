@@ -3,6 +3,7 @@ package com.kagura.temp;
 import org.junit.Test;
 
 import java.util.*;
+import java.util.regex.Pattern;
 
 /**
  * @author <a href="mailto:hongwen0928@outlook.com">Karas</a>
@@ -505,6 +506,7 @@ public class Test02 {
             System.out.println(Arrays.toString(nums));
             return f(nums, target);
         }
+
         public int[] f(int[] nums, int target) {
             int left = 0;
             int right = nums.length - 1;
@@ -550,6 +552,7 @@ public class Test02 {
                 System.out.println(a[i]);
             }
         }
+
         public int findJudge(int n, int[][] trust) {
             if (n == 1 && trust.length == 0) return 1;
             if (n > 1 && trust.length == 0) return -1;
@@ -572,7 +575,8 @@ public class Test02 {
                 int[] in = new int[n + 1], out = new int[n + 1];
                 for (int[] t : trust) {
                     int a = t[0], b = t[1];
-                    in[b]++; out[a]++;
+                    in[b]++;
+                    out[a]++;
                 }
                 for (int i = 1; i <= n; i++) {
                     if (in[i] == n - 1 && out[i] == 0) return i;
@@ -582,7 +586,159 @@ public class Test02 {
         }
     }
 
+    static class Solution202112212049 {
+        public static void main(String[] args) {
+            Solution202112212049 solution = new Solution202112212049();
+            System.out.println(solution.longestPalindrome("cbbd"));
+            ;
+        }
 
+
+        public Set<String> cache = new HashSet<>();
+
+        public String longestPalindrome(String s) {
+            f(s, 0, s.length() - 1);
+            int max = 0;
+            for (String e : cache) {
+                if (e.length() > max) {
+                    max = e.length();
+                    s = e;
+                }
+            }
+            if (cache.size() == 0) return s.charAt(0) + "";
+            return s;
+        }
+
+        public void f(String s, int left, int right) {
+            if (left > right) return;
+            boolean tf = true;
+            if (s.charAt(left) == s.charAt(right)) {
+                int i = left;
+                int j = right;
+                while (i <= j) {
+                    if (s.charAt(i++) != s.charAt(j--)) {
+                        tf = false;
+                        break;
+                    }
+                }
+                if (tf) {
+                    cache.add(s.substring(left, right + 1));
+                }
+            }
+            if (s.charAt(left) != s.charAt(right) || !tf) {
+                f(s, left + 1, right);
+                f(s, left, right - 1);
+            }
+        }
+
+
+        class Solution202112212220 {
+
+            public String maxString = "";
+
+            public String longestPalindrome(String s) {
+                boolean[][] dp = new boolean[s.length()][s.length()];
+                return f(s, 0, s.length() - 1, dp);
+            }
+
+            public String f(String s, int left, int right, boolean[][] dp) {
+                if (left > right) return "";
+                if (dp[left][right]) return s.substring(left, right + 1);
+                if (check(s, left, right)) {
+                    if (maxString.length() < right - left + 1) {
+                        maxString = s.substring(left, right + 1);
+                    }
+                } else {
+                    f(s, left + 1, right, dp);
+                    f(s, left, right - 1, dp);
+                }
+                // mark visited.
+                dp[left][right] = true;
+                return maxString;
+            }
+
+            public boolean check(String s, int left, int right) {
+                while (left < right) {
+                    if (s.charAt(left++) != s.charAt(right--)) return false;
+                }
+                return true;
+            }
+
+        }
+
+
+    }
+
+    class Solution202112222012 {
+        public boolean isMatch(String s, String p) {
+            return Pattern.matches(p, s);
+        }
+    }
+
+
+
+    // 3
+    // ["((()))","(()())","(())()","()(())","()()()"]
+    // 1
+    // ()
+    // 2
+    // ()(), (())
+    // 3
+    // 左边，右边，两边
+    static class Solution20211222 {
+
+        public List<String> generateParenthesis(int n) {
+            Set<String> set = f(new HashSet<>(), n, 1);
+            return new ArrayList<>(set);
+        }
+
+        public Set<String> f(Set<String> result, int n, int cur) {
+            if (cur > n) return result;
+            Set<String> set = new HashSet<>();
+            if (cur == 1) {
+                set.add("()");
+                return f(set, n, cur + 1);
+            }
+            for (String s : result) {
+                for (int i = -1; i <= s.length(); i++) {
+                    if (i == -1) set.add("()" + s);
+                    if (i == s.length()) set.add(s + "()");
+                    if (i != -1 && i != s.length()) set.add(s.substring(0, i) + "()" + s.substring(i));
+                }
+            }
+            return f(set, n, cur + 1);
+        }
+
+    }
+
+
+    static class Solution202112222114 {
+        public static void main(String[] args) {
+            Solution202112222114 s = new Solution202112222114();
+            System.out.println(s.isPalindrome(-111));
+            System.out.println(s.isPalindrome(0));
+            System.out.println(s.isPalindrome(1));
+            System.out.println(s.isPalindrome(12));
+            System.out.println(s.isPalindrome(121));
+        }
+        public boolean isPalindrome(int x) {
+            if(x < 0) return false;
+            if(x == 0) return true;
+            int n = x;
+            int result = 0;
+            while (n != 0) {
+                int a = n % 10;
+                n = n / 10;
+                result = result * 10 + a;
+            }
+            return result == x;
+        }
+
+        public boolean isPalindrome2(int x) {
+            String reverse = (new StringBuilder(x + "")).reverse().toString();
+            return (x + "").equals(reverse);
+        }
+    }
 
 
 }
