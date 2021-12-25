@@ -741,4 +741,55 @@ public class Test02 {
     }
 
 
+    class Solution202112251506 {
+        public boolean isEvenOddTree(TreeNode root) {
+            Deque<TreeNode> queue = new LinkedList<>();
+            int n = 0;
+            queue.offer(root);
+            while (!queue.isEmpty()) {
+                int size = queue.size();
+                int pre = queue.peek().val;
+                pre = n % 2 == 0 ? pre - 1 : pre + 1;
+                if (n % 2 == 0) {
+                    // 3, 7, 9
+                    for (int i = 0; i < size; i++) {
+                        TreeNode node = queue.poll();
+                        if (node.val % 2 == 0) {
+                            return false;
+                        }
+                        if (i == 0) {
+                            pre = node.val;
+                        } else if (pre >= node.val) {
+                            return false;
+                        }
+                        pre = node.val;
+                        queue.offer(node.left);
+                        queue.offer(node.right);
+                    }
+                } else {
+                    // 10, 4, 2
+                    for (int i = 0; i < size; i++) {
+                        TreeNode node = queue.poll();
+                        if (node.val % 2 == 1) {
+                            return false;
+                        }
+                        if (i == 0) {
+                            pre = node.val;
+                        } else if (pre <= node.val) {
+                            return false;
+                        }
+                        pre = node.val;
+                        queue.offer(node.left);
+                        queue.offer(node.right);
+                    }
+                }
+                n++;
+            }
+            return true;
+        }
+    }
+
+    
+
+
 }
