@@ -789,6 +789,113 @@ public class Test02 {
         }
     }
 
+
+    // 暴力递归
+    static class Solution202201290032 {
+
+        public static void main(String[] args) {
+            Solution202201290032 solution = new Solution202201290032();
+            System.out.println(solution.lengthOfLIS(new int[]{10, 9, 2, 5, 3, 7, 101, 18}));
+        }
+
+        public int lengthOfLIS(int[] nums) {
+            // [10,9,2,5,3,7,101,18]
+            return f(nums, 999, nums.length - 1);
+        }
+
+        public int f(int[] nums, int pre, int curr) {
+            if (curr < 0) return 0;
+            // current 可以要，也可以不要。
+            // 【不要】任何情况下都可以做的选择。
+            // 【要】与上一个『确定要的』作比较，只有小于上一个『确定要的』，才可以做这种选择。
+            int b = 0;
+            int a = f(nums, pre, curr - 1);
+            if (pre > nums[curr]) {
+                b = f(nums, nums[curr], curr - 1) + 1;
+            }
+            return Math.max(a, b);
+        }
+    }
+
+
+    static class Solution202201290048 {
+
+        public static void main(String[] args) {
+            Solution202201290048 solution = new Solution202201290048();
+            System.out.println(solution.lengthOfLIS(new int[]{5, 2, 3, 7, 6}));
+            System.out.println(solution.lengthOfLIS(new int[]{10, 9, 2, 5, 3, 7, 101, 18}));
+        }
+
+        public int lengthOfLIS(int[] nums) {
+            // [10,9,2,5,3,7,101,18]
+            int[] dp = new int[nums.length];
+            Arrays.fill(dp, -1);
+            return f(nums, 999, nums.length - 1, dp);
+        }
+
+        public int f(int[] nums, int pre, int curr, int[] dp) {
+            if (curr < 0) return 0;
+
+            int b = 0;
+            int a = f(nums, pre, curr - 1, dp);
+            if (pre > nums[curr]) {
+                if (dp[curr] != -1) return dp[curr];
+                b = f(nums, nums[curr], curr - 1, dp) + 1;
+                dp[curr] = Math.max(a, b);
+            }
+            return Math.max(a, b);
+        }
+    }
+
+    static class Solution202203112016 {
+        public static void main(String[] args) {
+            Solution202203112016 solution = new Solution202203112016();
+            int[][] grid = solution.colorBorder(new int[][]{{1, 2, 1, 2, 1, 2}, {2, 2, 2, 2, 1, 2}, {1, 2, 2, 2, 1, 2}},
+                    1, 3, 1);
+            for (int[] ints : grid) {
+                System.out.println(Arrays.toString(ints));
+            }
+        }
+
+        public int[][] colorBorder(int[][] grid, int row, int col, int color) {
+            int[][] target = new int[grid.length][grid[0].length];
+            f(grid, row, col, target);
+            for (int i = 0; i < target.length; i++) {
+                for (int j = 0; j < target[0].length; j++) {
+                    if (target[i][j] == 1) grid[i][j] = color;
+                }
+            }
+            return grid;
+        }
+        public void f(int[][] grid, int i, int j, int[][] target) {
+            // 上：[i - 1][j]
+            // 下：[i + 1][j]
+            // 左：[i][j - 1]
+            // 右：[i][j + 1]
+            // 1. (不越界 && 不相同) || (越界)
+            int curr = grid[i][j];
+            if ((i - 1 >= 0 && grid[i - 1][j] != curr)
+                    || (i + 1 < grid.length && grid[i + 1][j] != curr)
+                    || (j - 1 >= 0 && grid[i][j - 1] != curr)
+                    || (j + 1 < grid[0].length && grid[i][j + 1] != curr)
+                    || (i - 1 < 0 || i + 1 == grid.length || j - 1 < 0 || j + 1 == grid[0].length)) {
+                target[i][j] = 1;
+            } else {
+                target[i][j] = -1;
+            }
+            // 左递归
+            if (j - 1 >= 0 && target[i][j - 1] == 0 && grid[i][j - 1] == curr) f(grid, i, j - 1, target);
+            // 上递归
+            if (i - 1 >= 0 && target[i - 1][j] == 0 && grid[i - 1][j] == curr) f(grid, i - 1, j, target);
+            // 下递归
+            if (i + 1 < grid.length && target[i + 1][j] == 0 && grid[i + 1][j] == curr) f(grid, i + 1, j, target);
+            // 右递归
+            if (j + 1 < grid[0].length && target[i][j + 1] == 0 && grid[i][j + 1] == curr) f(grid, i, j + 1, target);
+        }
+    }
+
+
+
     
 
 
