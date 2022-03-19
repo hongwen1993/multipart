@@ -894,9 +894,97 @@ public class Test02 {
         }
     }
 
+    static class Solution202203182240 {
 
+        public static void main(String[] args) {
+            Solution202203182240 solution = new Solution202203182240();
+            //System.out.println(solution.maxProduct(new int[]{2, 3, -2, 4}));
+            //System.out.println(solution.maxProduct(new int[]{-2, 3, -2, 4}));
+            System.out.println(solution.maxProduct(new int[]{-4, -3, -2}));
+        }
 
-    
+        public int maxProduct(int[] nums) {
+            if (nums.length == 1) return nums[0];
+            return f(nums);
+        }
+        // [2, 3, -2, 4]
+        // [-2, 3, -2, 4]
+        // 子序列（i结尾考虑，暴力递归考虑）
+        // 以 i 结尾的最大乘积的结果等于什么？
+        // - nums[i] > 0，则需要依靠 i - 1 之前的最大乘积  Math.max(max * nums[i], nums[i])
+        // - nums[i] < 0，则需要依靠 i - 1 之前的最小乘积  Math.max(min * nums[i], nums[i])
+
+        // 以 i 结尾的最小乘积的结果等于什么？
+        // - nums[i] > 0，则需要依靠 i - 1 之前的最小乘积  Math.min(min * nums[i], nums[i]);
+        // - nums[i] < 0，则需要依靠 i - 1 之前的最大乘积  Math.min(max * nums[i], nums[i]);
+        public int f(int[] nums) {
+            int max = nums[0];
+            int min = nums[0];
+            int result = nums[0];
+            for (int i = 1; i < nums.length; i++) {
+                int num = nums[i];
+                if (num > 0) {
+                    max = Math.max(max * num, num);
+                    min = Math.min(min * num, num);
+                }
+                if (num < 0) {
+                    int temp = max;
+                    max = Math.max(min * num, num);
+                    min = Math.min(temp * num, num);
+                }
+                if (num == 0) {
+                    max = 0;
+                    min = 0;
+                }
+                result = Math.max(max, result);
+            }
+            return result;
+        }
+    }
+
+    class Solution202203190000 {
+
+        public boolean exist(char[][] board, String word) {
+            boolean[][] tf = new boolean[board.length][board[0].length];
+            for (int i = 0; i < board.length; i++) {
+                for (int j = 0; j < board[0].length; j++) {
+                    boolean ok = f(board, tf, i, j, word, 0);
+                    if (ok) return true;
+                }
+            }
+            return false;
+        }
+
+        public boolean f(char[][] board, boolean[][] tf, int i, int j, String word, int curr) {
+            boolean ok = false;
+            if (word.charAt(curr) == board[i][j]) {
+                // base case
+                if (curr == word.length() - 1) return true;
+                tf[i][j] = true;
+                // 上  [i - 1][j]
+                if (i - 1 >= 0 && !tf[i - 1][j]) {
+                    // 前往下个节点搜索前，先将当前节点染色
+                    ok = f(board, tf, i - 1, j, word, curr + 1);
+                }
+                // 下  [i + 1][j]
+                if (!ok && i + 1 < board.length && !tf[i + 1][j]) {
+                    ok = f(board, tf, i + 1, j, word, curr + 1);
+                }
+                // 左  [i][j - 1]
+                if (!ok && j - 1 >= 0 && !tf[i][j - 1]) {
+                    ok = f(board, tf, i, j - 1, word, curr + 1);
+                }
+                // 右  [i][j + 1]
+                if (!ok && j + 1 < board[0].length && !tf[i][j + 1]) {
+                    ok = f(board, tf, i, j + 1, word, curr + 1);
+                }
+                tf[i][j] = false;
+                return ok;
+            }
+            return false;
+        }
+
+    }
 
 
 }
