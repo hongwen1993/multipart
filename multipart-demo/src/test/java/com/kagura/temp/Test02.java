@@ -87,10 +87,9 @@ public class Test02 {
 
         int val;
         ListNode next;
-
-        ListNode(int x) {
-            val = x;
-        }
+        ListNode() {}
+        ListNode(int x) {val = x;}
+        ListNode(int val, ListNode next) { this.val = val; this.next = next; }
 
         @Override
         public String toString() {
@@ -676,7 +675,6 @@ public class Test02 {
     }
 
 
-
     // 3
     // ["((()))","(()())","(())()","()(())","()()()"]
     // 1
@@ -721,9 +719,10 @@ public class Test02 {
             System.out.println(s.isPalindrome(12));
             System.out.println(s.isPalindrome(121));
         }
+
         public boolean isPalindrome(int x) {
-            if(x < 0) return false;
-            if(x == 0) return true;
+            if (x < 0) return false;
+            if (x == 0) return true;
             int n = x;
             int result = 0;
             while (n != 0) {
@@ -867,6 +866,7 @@ public class Test02 {
             }
             return grid;
         }
+
         public void f(int[][] grid, int i, int j, int[][] target) {
             // 上：[i - 1][j]
             // 下：[i + 1][j]
@@ -985,6 +985,245 @@ public class Test02 {
         }
 
     }
+
+
+    class Solution202203192128 {
+        public void sortColors(int[] nums) {
+            Arrays.sort(nums);
+        }
+    }
+
+    class Solution202203192132 {
+        public void sortColors(int[] nums) {
+            // 定义3个计数器（常数级别）
+            int zero = 0;
+            int one = 0;
+            int two = 0;
+            for (int num : nums) {
+                if (num == 0) zero++;
+                if (num == 1) one++;
+                if (num == 2) two++;
+            }
+            int n = 0;
+            while (zero-- > 0) nums[n++] = 0;
+            while (one-- > 0) nums[n++] = 1;
+            while (two-- > 0) nums[n++] = 2;
+        }
+    }
+
+    class Solution202203192150 {
+        public void sortColors(int[] nums) {
+            quickSort(0, nums.length - 1, nums);
+        }
+
+        public void quickSort(int left, int right, int[] nums) {
+            // base case
+            if (left >= right) return;
+            int pivot = nums[left];
+            int cur = left;
+            int less = left - 1;
+            while (cur <= right) {
+                if (nums[cur] < pivot) {
+                    int temp = nums[cur];
+                    nums[cur] = nums[less + 1];
+                    nums[less + 1] = temp;
+                    less++;
+                }
+                cur++;
+            }
+            if (less == left - 1) less++;
+            quickSort(left, less, nums);
+            quickSort(less + 1, right, nums);
+        }
+    }
+
+    static class Solution202203192232 {
+
+        public static void main(String[] args) {
+            Solution202203192232 solution = new Solution202203192232();
+            solution.oddEvenList(null);
+        }
+
+        public ListNode oddEvenList(ListNode head) {
+            // 当 node.next.next != null
+            // （至少考虑3个节点）
+
+            // 1. 依次修改 odd
+            // 2. 依次修改 even
+            // 3. odd -> tempEven
+
+            if (head == null) return null;
+            // odd 链
+            ListNode odd = head;
+            // even 链
+            ListNode even = head.next;
+            ListNode evenTemp = even;
+            while (even != null && even.next != null) {
+                // 1 -> 2 -> 3 -> 4
+                //   ↓↓
+                // 1 -> 3 -> 4
+                // 2 -> 3 -> 4
+                odd.next = even.next;
+                // 指针到 next odd
+                odd = odd.next;
+
+                // 1 -> 3 -> 4
+                // 2 -> 3 -> 4
+                //   ↓↓
+                // 1 -> 3 -> 4
+                // 2 -> 4
+                even.next = odd.next;
+                // 指针到 next even
+                even = even.next;
+            }
+            // 3. odd -> tempEvent
+            odd.next = evenTemp;
+            return head;
+        }
+
+    }
+
+    static class Solution202203201430 {
+        public static void main(String[] args) {
+            Solution202203201430 solution = new Solution202203201430();
+            System.out.println(solution.numDecodings("17"));
+        }
+        public int numDecodings(String s) {
+            return f(s.toCharArray(), s.length() - 1);
+        }
+        public int f(char[] chars, int curr) {
+            // 226
+            if (curr < 0) return 1;
+            if (curr == 0 && chars[curr] == '0') return 0;
+            if (chars[curr] == '0' && (chars[curr - 1] != '1' && chars[curr - 1] != '2')) return 0;
+            int a = 0;
+            int b = 0;
+            if (chars[curr] != '0') {
+                a = f(chars, curr - 1);
+            }
+            if (curr != 0 && ((chars[curr - 1] == '1') || (chars[curr - 1] == '2' && chars[curr] <= '6'))) {
+                // 可以多出一种选择（同时消耗2位）
+                b = f(chars, curr - 2);
+            }
+            return a + b;
+        }
+    }
+
+
+    class Solution202203201616 {
+        public int numDecodings(String s) {
+            int[] dp = new int[s.length()];
+            Arrays.fill(dp, -1);
+            return f(s.toCharArray(), s.length() - 1, dp);
+        }
+
+        public int f(char[] chars, int curr, int[] dp) {
+            if (curr < 0) return 1;
+            if (curr == 0 && chars[curr] == '0') return 0;
+            if (chars[curr] == '0' && (chars[curr - 1] != '1' && chars[curr - 1] != '2')) return 0;
+            if (dp[curr] != -1) {
+                return dp[curr];
+            }
+            int a = 0;
+            int b = 0;
+            if (chars[curr] != '0') {
+                a = f(chars, curr - 1, dp);
+            }
+            if (curr != 0 && ((chars[curr - 1] == '1') || (chars[curr - 1] == '2' && chars[curr] <= '6'))) {
+                // 可以多出一种选择（同时消耗2位）
+                b = f(chars, curr - 2, dp);
+            }
+            dp[curr] = a + b;
+            return dp[curr];
+        }
+    }
+
+    static class QuickSortTest202203201940 {
+
+        public static void main(String[] args) {
+            QuickSortTest202203201940 c = new QuickSortTest202203201940();
+            int[] nums = new int[]{2, 1, 3, 8};
+            c.sortArray(nums);
+            System.out.println(Arrays.toString(nums));
+        }
+
+        public int[] sortArray(int[] nums) {
+            quickSort(nums, 0, nums.length - 1);
+            return nums;
+        }
+
+        public void quickSort(int[] nums, int left, int right) {
+            if (left >= right) return;
+            int pivot = nums[left];
+            int less = left - 1;
+            int curr = left;
+            while (curr <= right) {
+                if (nums[curr] < pivot) {
+                    int temp = nums[curr];
+                    nums[curr] = nums[less + 1];
+                    nums[less + 1] = temp;
+                    less++;
+                }
+                curr++;
+            }
+            //if (less == left - 1) less++;
+            quickSort(nums, left, less);
+            quickSort(nums, less + 1, right);
+        }
+    }
+
+
+    class Solution202203202247 {
+        public ListNode oddEvenList(ListNode head) {
+            if (head == null) {
+                return null;
+            }
+            ListNode 头节点副本 = head;
+            ListNode 奇数链表当前节点 = head;
+            ListNode 偶数链表当前节点 = head.next;
+            ListNode 偶数链表节点副本 = head.next;
+            while (偶数链表当前节点.next != null) {
+                    奇数链表当前节点.next = 偶数链表当前节点.next;
+                    奇数链表当前节点 = 偶数链表当前节点.next;
+                    偶数链表当前节点.next = 偶数链表当前节点.next.next;
+                    偶数链表当前节点 = 偶数链表当前节点.next.next;
+            }
+            奇数链表当前节点.next = 偶数链表节点副本;
+            return 头节点副本;
+        }
+
+
+    }
+
+
+    static class Solution202203232008 {
+
+        public static void main(String[] args) {
+            Solution202203232008 solution = new Solution202203232008();
+            System.out.println(solution.divisorGame(4));
+        }
+
+        public boolean divisorGame(int n) {
+            // 先手胜负
+            boolean[] dp = new boolean[n + 2];
+            dp[1] = false;
+            dp[2] = true;
+            for(int i = 3; i <= n; i++) {
+                for(int k = 1; k < i; k++){
+                    if(i % k == 0 && !dp[i - k]){
+                        // k 可以作为一个选择
+                        dp[i] = true;
+                        break;
+                    }
+                    dp[i] = false;
+                }
+            }
+            return dp[n];
+        }
+    }
+
+
+
 
 
 }
