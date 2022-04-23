@@ -1222,8 +1222,741 @@ public class Test02 {
         }
     }
 
+    static class Solution202203251944 {
+
+        public static void main(String[] args) {
+            Solution202203251944 solution = new Solution202203251944();
+            System.out.println(solution.trailingZeroes(3));
+            System.out.println(solution.trailingZeroes(5));
+        }
+
+        public int trailingZeroes(int n) {
+            if (n == 0 || n == 1 || n == 2 || n == 3) return 0;
+            int two = 0;
+            int five = 0;
+            for (int i = n; i > 0; i--) {
+                int k = i;
+                while (k % 2 == 0) {
+                    two++;
+                    k = k / 2;
+                }
+                k = i;
+                while (k % 5 == 0) {
+                    five++;
+                    k = k / 5;
+                }
+            }
+            return Math.min(two, five);
+        }
+
+    }
+
+    static class Solution202203262103 {
+        public static void main(String[] args) {
+            Solution202203262103 solution = new Solution202203262103();
+            System.out.println(solution.calPoints(new String[]{"5","2","C","D","+"}));
+        }
+        public int calPoints(String[] ops) {
+            if (ops == null || ops.length == 0) return 0;
+            Deque<String> list = new LinkedList<>();
+            for (String op : ops) {
+                switch (op) {
+                    case "+":
+                        String b = list.removeLast();
+                        String a = list.removeLast();
+                        list.addLast(a);
+                        list.addLast(b);
+                        list.addLast((Integer.parseInt(a) + Integer.parseInt(b)) + "");
+                        break;
+                    case "D":
+                        list.addLast((Integer.parseInt(list.getLast()) * 2) + "");
+                        break;
+                    case "C":
+                        list.removeLast();
+                        break;
+                    default:
+                        list.addLast(op);
+                        break;
+                }
+            }
+            int sum = 0;
+            while (!list.isEmpty()) sum += Integer.parseInt(list.removeFirst());
+            return sum;
+        }
+
+    }
+
+    static class Solution202203262127 {
+
+        public static void main(String[] args) {
+            Solution202203262127 solution = new Solution202203262127();
+            System.out.println(solution.lengthOfLongestSubstring("abba"));;
+        }
+
+        // s = "abcabcbb"
+        public int lengthOfLongestSubstring(String s) {
+            if (s.length() == 0) return 0;
+            Map<Character, Integer> map = new HashMap<>();
+            int max = 0;
+            int left = 0;
+            for (int i = 0; i < s.length(); i++) {
+                if (map.containsKey(s.charAt(i))) {
+                    // 千万不能写成 left = map.get(s.charAt(i)) + 1，因为当前重复值可能出现在 left 的左边（之前已经废弃的边界，不影响后续的选择）。
+                    left = Math.max(left, map.get(s.charAt(i)) + 1);
+                }
+                map.put(s.charAt(i), i);
+                max = Math.max(max, i - left + 1);
+            }
+            return max;
+        }
+
+    }
 
 
+    static class Solution202203262204 {
+        public static void main(String[] args) {
+            Solution202203262204 solution = new Solution202203262204();
+            System.out.println(Arrays.toString(solution.maxSlidingWindow(new int[]{1, 3, -1, -3, 5, 3, 6, 7}, 3)));
+            System.out.println(Arrays.toString(solution.maxSlidingWindow(new int[]{1, 3, 1, 2, 0, 5}, 3)));
+        }
+
+        public int[] maxSlidingWindow(int[] nums, int k) {
+            if (nums == null || nums.length == 0 || k == 0) return new int[]{};
+            Deque<Integer> list = new LinkedList<>();
+            List<Integer> result = new ArrayList<>();
+            // 初始化前 k 个数
+            for (int i = 0; i < k && i < nums.length; i++) {
+                if (list.isEmpty()) {
+                    list.addLast(i);
+                    continue;
+                }
+                while (!list.isEmpty() && nums[list.getLast()] <= nums[i]) {
+                    list.removeLast();
+                }
+                list.addLast(i);
+            }
+            result.add(nums[list.getFirst()]);
+            // 从下标 k 开始滑动
+            int left = 0;
+            for (int i = k; i < nums.length; i++) {
+                // 左边界与最大值校验
+                int first = list.getFirst();
+                if (first == left) {
+                    list.removeFirst();
+                }
+                // 右边界尝试塞入
+                while (!list.isEmpty() && nums[list.getLast()] <= nums[i]) {
+                    list.removeLast();
+                }
+                list.addLast(i);
+                // 结果
+                result.add(nums[list.getFirst()]);
+                // 左边界自增
+                left++;
+            }
+            return result.stream().mapToInt(Integer::intValue).toArray();
+        }
+
+    }
+
+    class Solution202203270804 {
+        public int combinationSum4(int[] nums, int target) {
+            int[] dp = new int[target + 1];
+            Arrays.fill(dp, -1);
+            return f(nums, target, dp);
+        }
+        public int f(int[] nums, int rest, int[] dp) {
+            if (rest < 0) return 0;
+            if (rest == 0) return 1;
+            if (dp[rest] != -1) return dp[rest];
+            int sum = 0;
+            for (int i = 0; i < nums.length; i++) {
+                int num = nums[i];
+                sum += f(nums, rest - nums[i], dp);
+            }
+            dp[rest] = sum;
+            return sum;
+        }
+    }
+
+    class Solution202203282012 {
+        public int nthSuperUglyNumber(int n, int[] primes) {
+
+            return -1;
+        }
+    }
+
+    static class Solution202204022233 {
+
+        public static void main(String[] args) {
+            Solution202204022233 solution = new Solution202204022233();
+            System.out.println(solution.minBitFlips(10, 7));
+        }
+
+        //    1010
+        // 1010010
+        public int minBitFlips(int start, int goal) {
+            String a = Integer.toBinaryString(start);
+            String b = Integer.toBinaryString(goal);
+            int i = a.length() - 1;
+            int j = b.length() - 1;
+            int n = 0;
+            while (i >= 0 && j >= 0) {
+                if (a.charAt(i) != b.charAt(j)) n++;
+                i--;
+                j--;
+            }
+            if (a.length() > b.length()) {
+                // 算 a 头上几位是0
+                while (i >= 0) {
+                    if (a.charAt(i) != '0') n++;
+                    i--;
+                }
+            }
+            if (a.length() < b.length()) {
+                // 算 b 头上几位是0
+                while (j >= 0) {
+                    if (b.charAt(j) != '0') n++;
+                    j--;
+                }
+            }
+            return n;
+        }
+
+
+    }
+
+
+    static class Solution202204022258 {
+
+        public static void main(String[] args) {
+            Solution202204022258 solution = new Solution202204022258();
+            System.out.println(solution.triangularSum(new int[]{1, 2, 3, 4, 5}));;
+        }
+
+        public int triangularSum(int[] nums) {
+            List<Integer> list = new ArrayList<>();
+            for (int num : nums) {
+                list.add(num);
+            }
+            return f(list);
+        }
+        public int f(List<Integer> nums) {
+            if (nums.size() == 1) {
+                return nums.get(0);
+            }
+            List<Integer> list = new ArrayList<>();
+            for (int i = 1; i < nums.size(); i++) {
+                int mod = (nums.get(i - 1) + nums.get(i)) % 10;
+                list.add(mod);
+            }
+            return f(list);
+        }
+
+    }
+
+    static class Solution202204022306 {
+
+        public static void main(String[] args) {
+            Solution202204022306 solution = new Solution202204022306();
+            System.out.println(solution.numberOfWays("001101"));
+        }
+
+        // 先手必然是从 0 开始，到最后 s.length() - 1。
+        // 先手确定了，后手必然也是确定的，只不过选择多了。
+        public long numberOfWays(String s) {
+            if(s.length() < 3) return 0;
+            return f(s, 0, -1,0);
+        }
+        public long f(String s, int curr, int pre, int rest) {
+            // 需要考虑
+            if (rest != 3 && curr == s.length()) {
+                return 0;
+            }
+            if (rest == 3) {
+                return 1;
+            }
+            long count = 0;
+            for (int i = curr; i < s.length(); i++) {
+                // 可以做选择
+                if (pre == -1 || s.charAt(i) != s.charAt(pre)) {
+                    count += f(s, i + 1, i, rest + 1);
+                }
+            }
+            return count;
+        }
+
+    }
+
+
+
+
+
+    static class Solution202204022341 {
+
+        public static void main(String[] args) {
+            Solution202204022341 solution = new Solution202204022341();
+            System.out.println(solution.numberOfWays("001101"));
+
+
+
+        }
+
+        // 先手必然是从 0 开始，到最后 s.length() - 1。
+        // 先手确定了，后手必然也是确定的，只不过选择多了。
+        public long numberOfWays(String s) {
+            if(s.length() < 3) return 0;
+            long[][][] dp = new long[s.length()][s.length()][4];
+            for (long[][] longs : dp) {
+                for (long[] aLong : longs) {
+                    Arrays.fill(aLong, -1L);
+                }
+            }
+            return f(s, 0, -1,0, dp);
+        }
+        public long f(String s, int curr, int pre, int rest, long[][][] dp) {
+            // 需要考虑
+            if (rest != 3 && curr == s.length()) {
+                return 0;
+            }
+            if (rest == 3) {
+                return 1;
+            }
+            if (pre != -1 && dp[curr][pre][rest] != -1L) {
+                return dp[curr][pre][rest];
+            }
+            long count = 0;
+            for (int i = curr; i < s.length(); i++) {
+                // 可以做选择
+                if (pre == -1 || s.charAt(i) != s.charAt(pre)) {
+                    count += f(s, i + 1, i, rest + 1, dp);
+                }
+            }
+            if (pre != -1) {
+                dp[curr][pre][rest] = count;
+            }
+            return count;
+        }
+
+    }
+
+
+    static class Solution202204022351 {
+
+        public static void main(String[] args) {
+            Solution202204022351 solution = new Solution202204022351();
+            System.out.println(solution.numberOfWays("001101"));
+
+
+
+        }
+
+        // 先手必然是从 0 开始，到最后 s.length() - 1。
+        // 先手确定了，后手必然也是确定的，只不过选择多了。
+        public long numberOfWays(String s) {
+            if(s.length() < 3) return 0;
+            Map<String, Long> cache = new HashMap<>();
+            return f(s, 0, -1,0, cache);
+        }
+        public long f(String s, int curr, int pre, int rest, Map<String, Long> cache) {
+            // 需要考虑
+            if (rest != 3 && curr == s.length()) {
+                return 0;
+            }
+            if (rest == 3) {
+                return 1;
+            }
+            String key = curr + "_" + pre + "_" + rest;
+            if (cache.get(key) != null) {
+                return cache.get(key);
+            }
+            long count = 0;
+            for (int i = curr; i < s.length(); i++) {
+                // 可以做选择
+                if (pre == -1 || s.charAt(i) != s.charAt(pre)) {
+                    count += f(s, i + 1, i, rest + 1, cache);
+                }
+            }
+            cache.put(key, count);
+            return count;
+        }
+
+    }
+
+
+    static class Solution202204161543 {
+
+        public static void main(String[] args) {
+            Solution202204161543 solution = new Solution202204161543();
+            //System.out.println(solution.longestValidParentheses("())()()"));
+            System.out.println(solution.longestValidParentheses("()(())"));
+        }
+
+        public int longestValidParentheses(String s) {
+            if (s == null || s.length() <= 1) return 0;
+            // ( ) ) ( ( ) ( ) ) )
+            // 0 2 0 0 0 2 0 4 6 0
+            // ( ) ( ( ) )
+            // 0 2 0 0 2 6
+            // 以任意 i 作为节点，向左看
+            int[] dp = new int[s.length()];
+            dp[0] = 0;
+            for (int i = 1; i < s.length(); i++) {
+                // 当 c = '(' 时 dp[i] = 0
+                // 当 c = ')' 时 进行动态推演
+                // （只进行成功配对的逻辑，因为配对失败默认就是0）
+                char curr = s.charAt(i);
+                if (curr == ')') {
+                    char leftChar = s.charAt(i - 1);
+                    if (leftChar == '(') dp[i] = i - 2 >= 0 ? dp[i - 2] + 2 : 2;
+                    if (leftChar == ')') {
+                        int pre = i - 1 - dp[i - 1];
+                        if (pre >= 0 && s.charAt(pre) == '(') {
+                            dp[i] = dp[i - 1] + 2;
+                            if (pre >= 1) dp[i] += dp[pre - 1];
+                        }
+                    }
+                }
+            }
+            int max = 0;
+            for (int value : dp) max = Math.max(value, max);
+            return max;
+        }
+        public void f() {
+
+        }
+    }
+
+
+    // battle
+    // 1
+    static class Solution202204162242 {
+        public static void main(String[] args) {
+            Solution202204162242 solution = new Solution202204162242();
+            System.out.println(solution.findClosestNumber(new int[]{2,-1,1}));
+        }
+        public int findClosestNumber(int[] nums) {
+            int minIndex = 0;
+            for (int i = 1; i < nums.length; i++) {
+                if (Math.abs(nums[minIndex]) == Math.abs(nums[i])) {
+                    if (nums[minIndex] <= nums[i]) {
+                        minIndex = i;
+                    }
+                } else if (Math.abs(nums[minIndex]) > Math.abs(nums[i])) {
+                    minIndex = i;
+                }
+            }
+            return nums[minIndex];
+        }
+    }
+
+    // 2
+    static class Solution202204162253 {
+
+        public static void main(String[] args) {
+            Solution202204162253 solution = new Solution202204162253();
+            // [0] [0, 1, 2]
+            // [1] [0, 1]
+            // [2] [0]
+            System.out.println(solution.waysToBuyPensPencils(20, 10, 5));
+
+        }
+
+        public long waysToBuyPensPencils(int total, int cost1, int cost2) {
+            if (total < cost1 && total < cost2) return 1;
+
+            return f(total, cost1, cost2);
+        }
+        public int f(int rest, int cost1, int cost2) {
+            if (rest - cost1 < 0 && rest - cost2 < 0) return 0;
+
+            int a = 0, b = 0;
+            if (rest - cost1 >= 0) {
+                a = f(rest - cost1, cost1, cost2) + 1;
+            }
+            if (rest - cost2 >= 0) {
+                b = f(rest - cost2, cost1, cost2) + 1;
+            }
+            return a + b;
+        }
+    }
+
+
+    static class Solution202204162315 {
+
+        public static void main(String[] args) {
+            Solution202204162315 solution = new Solution202204162315();
+            // [0] [0, 1, 2]
+            // [1] [0, 1]
+            // [2] [0]
+            System.out.println(solution.waysToBuyPensPencils(1000000, 1, 1));
+
+        }
+
+        public long waysToBuyPensPencils(int total, int cost1, int cost2) {
+            if (total < cost1 && total < cost2) return 1;
+            long[][] dp = new long[total + 1][2];
+            for (int i = 0; i < dp.length; i++) Arrays.fill(dp[i], -1);
+            int[] cost = new int[]{cost1, cost2};
+            return f(total, cost, 0, dp) + 1;
+        }
+        public long f(int rest, int[] cost, int pre, long[][] dp) {
+            if (rest <= 0) return 0;
+            if (dp[rest][pre] != -1) return dp[rest][pre];
+            long sum = 0;
+            for (int i = pre; i < cost.length; i++) {
+                if (rest - cost[i] >= 0) {
+                    sum = sum + f(rest - cost[i], cost, i, dp) + 1;
+                }
+            }
+            dp[rest][pre] = sum;
+            return sum;
+        }
+    }
+
+
+    static class Solution20220417 {
+        public static void main(String[] args) {
+            Solution20220417 solution = new Solution20220417();
+            //System.out.println(solution.lemonadeChange(new int[]{5, 5, 5, 10, 20}));
+            System.out.println(solution.lemonadeChange(new int[]{5, 5, 10, 10, 5, 20, 5, 10, 5, 5}));
+        }
+
+        public boolean lemonadeChange(int[] bills) {
+            // [0] 表示5元张数，[1] 表示10元张数。
+            int[] count = new int[2];
+            for (int i = 0; i < bills.length; i++) {
+                if (bills[i] == 5) {
+                    count[0]++;
+                } else if (bills[i] == 10) {
+                    count[1]++;
+                    if (count[0] > 0) {
+                        count[0]--;
+                    } else {
+                        return false;
+                    }
+                } else if (bills[i] == 20) {
+                    if (count[1] >= 1 && count[0] >= 1) {
+                        // 10 * 1 + 5 * 1
+                        count[1] -= 1;
+                        count[0] -= 1;
+                    } else if (count[0] >= 3) {
+                        // 5 * 3
+                        count[0] -= 3;
+                    } else {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+    }
+
+    class Solution202204230842 {
+        public int[][] outerTrees(int[][] trees) {
+
+            return null;
+        }
+    }
+
+    static class Solution202204231501 {
+
+        public static void main(String[] args) {
+            Solution202204231501 solution = new Solution202204231501();
+            int[] time = new int[]{2, 3, 2};
+            int[][] fruits = new int[3][2];
+            fruits[0][0] = 0;
+            fruits[0][1] = 2;
+            fruits[1][0] = 1;
+            fruits[1][1] = 4;
+            fruits[2][0] = 2;
+            fruits[2][1] = 1;
+            System.out.println(solution.getMinimumTime(time, fruits, 3));
+
+            time = new int[]{1};
+            fruits = new int[2][2];
+            fruits[0][0] = 0;
+            fruits[0][1] = 3;
+            fruits[1][0] = 0;
+            fruits[1][1] = 5;
+            System.out.println(solution.getMinimumTime(time, fruits, 2));
+
+        }
+
+        public int getMinimumTime(int[] time, int[][] fruits, int limit) {
+            if (time.length == 0 || fruits.length == 0 || limit == 0) return 0;
+            int sum = 0;
+            for (int[] fruit : fruits) {
+                // type
+                int a = fruit[0];
+                // need
+                int b = fruit[1];
+                // limit
+                int c = b / limit;
+                sum = sum + time[a] * (c + 1);
+            }
+            return sum;
+        }
+
+    }
+
+
+    static class Solution202204231527 {
+
+        public static void main(String[] args) {
+            Solution202204231527 solution = new Solution202204231527();
+            int[][] a = new int[][]{{2, 0, 2}, {5, 2, 0}, {4, 1, 0}, {1, 2, 1}, {3, 0, 2}};
+            System.out.println(solution.getMaximumNumber(a));
+        }
+
+        public int getMaximumNumber(int[][] moles) {
+            return -1;
+        }
+    }
+
+
+    static class Solution202204231539 {
+
+        public static void main(String[] args) {
+            Solution202204231539 solution = new Solution202204231539();
+            //System.out.println(solution.conveyorBelt(new String[]{">>v", "v^<", "<><"}, new int[]{0, 1}, new int[]{2, 0}));
+            //System.out.println(solution.conveyorBelt(new String[]{">>v",">>v","^<<"}, new int[]{0, 0}, new int[]{1, 0}));
+            //System.out.println(solution.conveyorBelt(new String[]{">^^>", "<^v>", "^v^<"}, new int[]{0, 0}, new int[]{1, 3}));
+
+            // > > v
+            // ^ > v
+            // ^ > v
+            // ^ > v
+            // ^ ^ <
+            //System.out.println(solution.conveyorBelt(new String[]{">>v","^>v","^>v","^>v","^^<"}, new int[]{0, 0}, new int[]{3, 1}));
+
+            System.out.println(solution.conveyorBelt(new String[]{">v","vv"}, new int[]{0, 1}, new int[]{1, 1}));
+        }
+
+        public int conveyorBelt(String[] matrix, int[] start, int[] end) {
+            int xLen = matrix.length;
+            int yLen = matrix[0].length();
+            long[][] dp = new long[xLen][yLen];
+            for (int i = 0; i < dp.length; i++) {
+                long[] ints = dp[i];
+                Arrays.fill(ints, -1);
+            }
+            return (int) f(matrix, end, start[0], start[1], xLen, yLen, new int[xLen][yLen], dp);
+        }
+
+        // (new String[]{">v","vv", "vv"}, new int[]{0, 0}, new int[]{2, 1}));
+        public long f(String[] matrix, int[] end, int i, int j, int xLen, int yLen, int[][] tf, long[][] dp) {
+
+            if (i == -1 || i == xLen || j == -1 || j == yLen || tf[i][j] == 1) {
+                return Integer.MAX_VALUE;
+            }
+            // 染色
+            if (i == end[0] && j == end[1]) {
+                return 0;
+            }
+            if (dp[i][j] != -1) {
+                return dp[i][j];
+            }
+            tf[i][j] = 1;
+
+            char curr = matrix[i].charAt(j);
+
+
+            // 施法
+            // 什么情况下可以施法？
+            // 且可以施至少2种法（第1次最多可以施展3种）
+            long a1 = Integer.MAX_VALUE;
+            long a2 = Integer.MAX_VALUE;
+            long a3 = Integer.MAX_VALUE;
+            if (curr == '>') {
+                // 上，下，左
+                // 上
+                if (i - 1 >= 0 && tf[i - 1][j] != 1) {
+                    a1 = f(matrix, end, i - 1, j, xLen, yLen, tf, dp) + 1;
+                }
+                // 下
+                if (i + 1 <= xLen - 1 && tf[i + 1][j] != 1) {
+                    a2 = f(matrix, end, i + 1, j, xLen, yLen, tf, dp) + 1;
+                }
+                // 左
+                if (j - 1 >= 0 && tf[i][j - 1] != 1) {
+                    a3 = f(matrix, end, i, j - 1, xLen, yLen, tf, dp) + 1;
+                }
+            } else if (curr == 'v') {
+                // 上，左，右
+                // 上
+
+                if (i - 1 >= 0 && tf[i - 1][j] != 1) {
+                    a1 = f(matrix, end, i - 1, j, xLen, yLen, tf, dp) + 1;
+                }
+                // 左
+                if (j - 1 >= 0 && tf[i][j - 1] != 1) {
+                    a2 = f(matrix, end, i, j - 1, xLen, yLen, tf, dp) + 1;
+                }
+                // 右
+                if (j + 1 <= yLen - 1 && tf[i][j + 1] != 1) {
+                    a3 = f(matrix, end, i, j + 1, xLen, yLen, tf, dp) + 1;
+                }
+            } else if (curr == '<') {
+                // 上，下，右
+                // 上
+                if (i - 1 >= 0 && tf[i - 1][j] != 1) {
+                    a1 = f(matrix, end, i - 1, j, xLen, yLen, tf, dp) + 1;
+                }
+                // 下
+                if (i + 1 <= xLen - 1 && tf[i + 1][j] != 1) {
+                    a2 = f(matrix, end, i + 1, j, xLen, yLen, tf, dp) + 1;
+                }
+                // 右
+                if (j + 1 <= yLen - 1 && tf[i][j + 1] != 1) {
+                    a3 = f(matrix, end, i, j + 1, xLen, yLen, tf, dp) + 1;
+                }
+            } else if (curr == '^') {
+                // 下，左，右
+                // 下
+                if (i + 1 <= xLen - 1 && tf[i + 1][j] != 1) {
+                    a1 = f(matrix, end, i + 1, j, xLen, yLen, tf, dp) + 1;
+                }
+                // 左
+                if (j - 1 >= 0 && tf[i][j - 1] != 1) {
+                    a2 = f(matrix, end, i, j - 1, xLen, yLen, tf, dp) + 1;
+                }
+                // 右
+                if (j + 1 <= yLen - 1 && tf[i][j + 1] != 1) {
+                    a3 = f(matrix, end, i, j + 1, xLen, yLen, tf, dp) + 1;
+                }
+            }
+
+            // 不施法
+            // 满足条件则不施法继续走：
+            long b = Integer.MAX_VALUE;
+            if (curr == '>' && j + 1 <= yLen - 1 && tf[i][j + 1] != 1) {
+                b = f(matrix, end, i, j + 1, xLen, yLen, tf, dp);
+            } else if (curr == 'v' && i + 1 <= xLen - 1 && tf[i + 1][j] != 1) {
+                b = f(matrix, end, i + 1, j, xLen, yLen, tf, dp);
+            } else if (curr == '<' && j - 1 >= 0 && tf[i][j - 1] != 1) {
+                b = f(matrix, end, i, j - 1, xLen, yLen, tf, dp);
+            } else if (curr == '^' && i - 1 >= 0 && tf[i - 1][j] != 1) {
+                b = f(matrix, end, i - 1, j, xLen, yLen, tf, dp);
+            }
+
+            // 恢复现场
+            tf[i][j] = 0;
+            dp[i][j] = Math.min(a1, Math.min(a2, Math.min(a3, b)));
+            return dp[i][j];
+        }
+
+
+
+
+
+
+
+
+
+    }
 
 
 }
+
+
