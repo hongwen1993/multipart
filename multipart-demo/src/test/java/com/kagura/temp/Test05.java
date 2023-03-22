@@ -63,4 +63,33 @@ public class Test05 {
 
     }
 
+    static class Solution202303230020 {
+        public static void main(String[] args) {
+            Solution202303230020 solution = new Solution202303230020();
+            System.out.println(solution.checkArithmeticSubarrays(new int[]{4, 6, 5, 9, 3, 7}, new int[]{2}, new int[]{5}));
+        }
+
+        public List<Boolean> checkArithmeticSubarrays(int[] nums, int[] l, int[] r) {
+            List<Boolean> result = new ArrayList<>();
+            for (int i = 0; i < l.length; i++) {
+                int[] arr = Arrays.copyOfRange(nums, l[i], r[i] + 1);
+                Arrays.sort(arr);
+                result.add(check(arr));
+            }
+            return result;
+        }
+        public boolean check(int[] nums) {
+            if (nums.length < 2) {
+                return true;
+            }
+            int minus = nums[1] - nums[0];
+            for (int i = 2; i < nums.length; i++) {
+                if (nums[i] - nums[i - 1] != minus) {
+                    return false;
+                }
+            }
+            return true;
+        }
+    }
+
 }
